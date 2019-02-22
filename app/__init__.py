@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, request, make_response, jsonify
-from .instance.config import app_config
+from instance.config import app_config
 from werkzeug.contrib.fixers import ProxyFix
 import json
 
@@ -65,9 +65,9 @@ def create_app(config_name='development'):
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
     # local imports
-    from .api.v1 import version_one as v1
-    #register blueprint
-    app.register_blueprint(v1)
+    #from .api.v1 import version_one as v1
+    # register blueprint
+    #app.register_blueprint(v1)
 
     app.register_error_handler(400, bad_request)
     app.register_error_handler(401, unauthorized)

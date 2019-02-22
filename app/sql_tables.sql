@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS incidents (
 CREATE TABLE IF NOT EXISTS records (
     record_id serial PRIMARY KEY NOT NULL,
     created_by character varying(20) NOT NULL,
+    id_num numeric (10) NOT NULL,
     persona character varying(20)  NOT NULL,
     description character varying(200) NOT NULL,
     tell character varying(50) DEFAULT 0,
@@ -53,4 +54,8 @@ CREATE TABLE IF NOT EXISTS sms (
     comment character varying(1000) NOT NULL,
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
+
+
+INSERT INTO users (first_name, last_name, id_num, user_type, password, address) VALUES
+	("Admin", "Admin", 123456789, "admin", "admin_kenya", "ADMIN_address");
 
