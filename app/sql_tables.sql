@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS blacklist (
-    tokens character varying(200) NOT NULL,
-    status character varying(50) DEFAULT 0
+    tokens character varying(200) NOT NULL
 );
 
 
@@ -8,12 +7,11 @@ CREATE TABLE IF NOT EXISTS users (
     first_name character varying(50) NOT NULL,
     last_name character varying(50),
     id_num numeric (10) PRIMARY KEY NOT NULL,
-    user_type character varying(50) DEFAULT "Normal",
+    role character varying(50) DEFAULT ('Normal'),
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL,
     password character varying(500) NOT NULL,
     address character varying(50),
-    tell character varying(50) NOT NULL,
-
+    tell character varying(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS incidents (
@@ -49,13 +47,12 @@ CREATE TABLE IF NOT EXISTS comments (
 CREATE TABLE IF NOT EXISTS sms (
     sms_id serial PRIMARY KEY NOT NULL,
     sms_details character varying(20) NOT NULL,
-    to_cell numeric (15) NOT NULL 
+    to_cell numeric (15) NOT NULL, 
     created_by character varying(20) NOT NULL,
     comment character varying(1000) NOT NULL,
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
 
 
-INSERT INTO users (first_name, last_name, id_num, user_type, password, address) VALUES
-	("Admin", "Admin", 123456789, "admin", "admin_kenya", "ADMIN_address");
+
 

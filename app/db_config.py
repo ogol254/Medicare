@@ -1,3 +1,4 @@
+from flask import current_app
 import psycopg2
 
 
@@ -19,10 +20,10 @@ def init_db():
 
 
 def init_test_db():
-    conn = connection(os.getenv('DATABASE_TEST_URL'))
+    conn = connection(current_app.config['DATABASE_TEST_URL'])
     destroy_db()
     with conn as conn, conn.cursor() as cursor:
-        with current_app.open_resource('stackovflow.sql', mode='r') as sql:
+        with current_app.open_resource('sql_tables.sql', mode='r') as sql:
             cursor.execute(sql.read())
 
         conn.commit()
@@ -30,7 +31,7 @@ def init_test_db():
 
 
 def destroy_db():
-    test_url = os.getenv('DATABASE_TEST_URL')
+    test_url = current_app.config['DATABASE_TEST_URL']
     conn = connection(test_url)
     curr = conn.cursor()
     blacklist = "DROP TABLE IF EXISTS blacklist CASCADE"

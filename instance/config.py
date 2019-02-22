@@ -9,7 +9,7 @@ class Config(object):
     DEBUG = False
     CSRF_ENABLED = True
     DATABASE_URL = os.getenv("DATABASE_URL")
-    DATABASE_TEST_URL = os.getenv("DATABASE_TEST_URL")
+    SECRET_KEY = os.getenv("SECRET_KEY", "kalongo")
 
 
 class DevelopmentConfig(Config):
