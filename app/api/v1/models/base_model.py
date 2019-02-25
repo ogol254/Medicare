@@ -108,7 +108,10 @@ class BaseModel(object):
         curr = self.db.cursor()
         query = "SELECT * FROM {} WHERE {}='{}'".format(table, field, data)
         curr.execute(query)
-        return curr.fetchone() is not None
+        data = curr.fetchone()[0]
+        if not data:
+            return False
+        return True
 
     def _type(self):
         """returns the name of the inheriting class"""
