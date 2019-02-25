@@ -53,6 +53,3 @@ CREATE TABLE IF NOT EXISTS sms (
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
 
-
-
-

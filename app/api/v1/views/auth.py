@@ -3,17 +3,17 @@ from flask import jsonify, make_response, request
 import json
 import re
 import string
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, Forbidden
 
-from ..models.auth_models import UserModel
-from ..utils.serializers import UserDTO
+from ..models.auth_models import AuthModel
+from ..utils.serializers import AuthDTO
 from ..utils.auth_validation import auth_required
 
-api = UserDTO().api
-login_user = UserDTO().user
-_user_resp = UserDTO().user_resp
-_validate_user_resp = UserDTO.validate_user_resp
+api = AuthDTO().api
+login_user = AuthDTO().user
+_user_resp = AuthDTO().user_resp
+_validate_user_resp = AuthDTO().validate_user_resp
 
 
 def _validate_user(user):
@@ -40,7 +40,7 @@ class AuthLogin(Resource):
     docu_string = "This endpoint accepts POST requests to allow a registered user to log in."
 
     @api.doc(docu_string)
-    #@api.marshal_with(_user_resp, code=200)
+    @api.marshal_with(_user_resp, code=200)
     @api.expect(login_user, validate=True)
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
@@ -58,11 +58,11 @@ class AuthLogin(Resource):
 
         _validate_user(login_data)
 
-        user = UserModel(**login_data)
+        user = AuthModel(**login_data)
         record = user.get_user_by_id(id_number)
         if not record:
             return make_response(jsonify({
-                "Message": "Your details were not found, please sign up"
+                "message": "Your details were not found, please sign up"
             }), 401)
 
         first_name, last_name, passwordharsh, id_number, role = record
@@ -87,20 +87,16 @@ class AuthLogout(Resource):
         """This endpoint allows a registered user to logout."""
         auth_header = request.headers.get('Authorization')
         if not auth_header:
-            return make_response(jsonify({
-                "Message": "No authorization header provided. This resource is secured."
-            }), 400)
+            raise BadRequest("authorization header provided. This resource is secured.")
         auth_token = auth_header.split(" ")[1]
-        response = UserModel().decode_auth_token(auth_token)
+        response = AuthModel().decode_auth_token(auth_token)
         if isinstance(response, str):
             # token is either invalid or expired
-            return make_response(jsonify({
-                "Message": "You are not authorized to access this resource. {}".format(response)
-            }), 401)
+            raise Unauthorized("You are not authorized to access this resource. {}".format(response))
         else:
             # the token decoded succesfully
             # logout the user
-            user_token = UserModel().logout_user(auth_token)
+            user_token = AuthModel().logout_user(auth_token)
             resp = dict()
             return {"message": "logout successful. {}".format(user_token)}, 200
 
@@ -115,7 +111,7 @@ class AuthValidate(Resource):
     @auth_required
     def post(self):
         """This endpoint validates a token"""
-        user = UserModel().get_user_by_id()
+        user = AuthModel().get_user_by_id(123456789)
         id_num = int(user[3])
         name = user[0]
         resp = {

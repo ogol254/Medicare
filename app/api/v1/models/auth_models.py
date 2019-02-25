@@ -4,7 +4,7 @@ from ....db_config import init_db
 from .base_model import BaseModel
 
 
-class UserModel(BaseModel):
+class AuthModel(BaseModel):
     """This class encapsulates the functions of the user model"""
 
     def __init__(self, id_number="12345678", first_name="first", address="address",

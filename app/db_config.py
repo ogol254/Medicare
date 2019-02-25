@@ -43,3 +43,7 @@ def destroy_db():
         conn.commit()
     except:
         print("Fail")
+
+
+# INSERT INTO users (first_name, last_name, id_num, role, password, address, tell) VALUES
+#('Admin', 'Admin', '123456789', 'admin', 'pbkdf2:sha256:50000$0UJC97AT$4767261ce2cf04ce16128bc8a75eb4a7f04aa413936e9253309fc7d705a32a4a', 'ADMIN_address', '790463533');

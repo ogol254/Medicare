@@ -4,16 +4,9 @@ This module collects all the Data Transfer Objects for the API
 from flask_restplus import Namespace, fields
 
 
-class UserDTO(object):
+class AuthDTO(object):
     """User Data Transfer Object"""
     api = Namespace('auth', description='user authentication and signup resources')
-    n_user = api.model('new user request', {
-        'first_name': fields.String(required=True, description="user's first name"),
-        'last_name': fields.String(required=True, description="user's last name"),
-        'username': fields.String(required=True, description="user's username"),
-        'email': fields.String(required=True, description="user's email address"),
-        'password': fields.String(required=True, description="user's password")
-    })
     user = api.model('login request', {
         'id_number': fields.String(required=True, description="user's id number"),
         'password': fields.String(required=True, description="user's password")
@@ -27,6 +20,18 @@ class UserDTO(object):
         'message': fields.String(required=True, description="success message"),
         'id num': fields.String(required=False, description="userid"),
         'name': fields.String(required=False, description="username")
+    })
+
+
+class UserDTO(object):
+    """docstring for  UserDTO"""
+    api = Namespace('auth', description='user and signup resources')
+    n_user = api.model('new user request', {
+        'first_name': fields.String(required=True, description="user's first name"),
+        'last_name': fields.String(required=True, description="user's last name"),
+        'username': fields.String(required=True, description="user's username"),
+        'email': fields.String(required=True, description="user's email address"),
+        'password': fields.String(required=True, description="user's password")
     })
 
 
