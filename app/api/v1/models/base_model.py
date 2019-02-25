@@ -55,7 +55,7 @@ class BaseModel(object):
             return False
 
     @staticmethod
-    def encode_auth_token(id_num):
+    def encode_auth_token(id_num, role):
         """Function to generate Auth token
         """
         # import pdb;pdb.set_trace()
@@ -64,7 +64,7 @@ class BaseModel(object):
             payload = {
                 "exp": datetime.utcnow() + timedelta(days=1),
                 "iat": datetime.utcnow(),
-                "sub": int(id_num)
+                "sub": [int(id_num), role]
             }
             token = jwt.encode(
                 payload,
@@ -108,7 +108,7 @@ class BaseModel(object):
         curr = self.db.cursor()
         query = "SELECT * FROM {} WHERE {}='{}'".format(table, field, data)
         curr.execute(query)
-        data = curr.fetchone()[0]
+        data = curr.fetchone()
         if not data:
             return False
         return True

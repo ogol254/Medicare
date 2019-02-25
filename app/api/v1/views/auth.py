@@ -46,7 +46,7 @@ class AuthLogin(Resource):
         """This endpoint allows an unregistered user to sign up."""
         req_data = request.data.decode().replace("'", '"')
         if not req_data:
-            return make_response(jsonify({"Message": "Provide data in the request"}))
+            raise BadRequest("Provide data in the request")
         login_details = json.loads(req_data)
         id_number = login_details['id_number'].strip()
         password = login_details['password'].strip()
@@ -69,7 +69,7 @@ class AuthLogin(Resource):
         if not check_password_hash(passwordharsh, password):
             raise Unauthorized("National Identification number and Password do not match")
 
-        token = user.encode_auth_token(id_number)
+        token = user.encode_auth_token(id_number, role)
         resp = {
             "message": "Success",
             "AuthToken": "{}".format(token.decode('utf-8')),
@@ -90,7 +90,7 @@ class AuthLogout(Resource):
             raise BadRequest("authorization header provided. This resource is secured.")
         auth_token = auth_header.split(" ")[1]
         response = AuthModel().decode_auth_token(auth_token)
-        if isinstance(response, str):
+        if isinstance(response[0], str):
             # token is either invalid or expired
             raise Unauthorized("You are not authorized to access this resource. {}".format(response))
         else:

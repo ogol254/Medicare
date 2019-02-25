@@ -4,7 +4,7 @@ from ....db_config import init_db
 from .base_model import BaseModel
 
 
-class AuthModel(BaseModel):
+class UserModel(BaseModel):
     """This class encapsulates the functions of the user model"""
 
     def __init__(self, id_number="12345678", first_name="first", address="address",
@@ -19,7 +19,27 @@ class AuthModel(BaseModel):
         self.address = address
         self.db = init_db()
 
-    def save_user(self):
+    def get_users(self):
+        dbconn = init_db()
+        curr = dbconn.cursor()
+        curr.execute("""SELECT id_num, first_name, last_name, address, tell FROM users;""")
+        data = curr.fetchall()
+        resp = []
+        curr.close()
+
+        for i, items in enumerate(data):
+            id_num, first_name, last_name, address, tell = items
+            users = dict(
+                id_number=int(id_num),
+                first_name=first_name,
+                last_name=last_name,
+                address=address,
+                tell=int(tell)
+            )
+            resp.append(users)
+        return resp
+
+    def save(self):
         """Add user details to the database"""
         user = {
             "id_number": self.id_number,
@@ -32,13 +52,13 @@ class AuthModel(BaseModel):
         }
         # check if user exists
         if BaseModel().check_exists(table="users", field="id_num", data=user['id_number']):
-            return "User with ID {} exists".format(self.id_number)
+            return False
 
         database = self.db
         curr = database.cursor()
         query = """INSERT INTO users (first_name, last_name, id_num, address, role, password, tell) \
             VALUES ( %(first_name)s, %(last_name)s,\
-            %(id_number)s, %(address)s, %(role)s, %(password)s, %(tell)s,) RETURNING id_num;
+            %(id_number)s, %(address)s, %(role)s, %(password)s, %(tell)s) RETURNING id_num;
             """
         curr.execute(query, user)
         id_num = curr.fetchone()[0]

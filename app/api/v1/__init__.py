@@ -9,6 +9,7 @@ from werkzeug.exceptions import NotFound
 version_one = Blueprint('version1', __name__, url_prefix="/api/v1")
 
 from .views.auth import api as auth_ns
+from .views.users import api as user_ns
 
 
 api = Api(version_one,
@@ -17,3 +18,4 @@ api = Api(version_one,
           description="Meternal health support system")
 
 api.add_namespace(auth_ns, path="/auth")
+api.add_namespace(user_ns, path="/users")
