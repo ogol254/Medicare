@@ -18,8 +18,8 @@ class AuthDTO(object):
     })
     validate_user_resp = api.model('validation request', {
         'message': fields.String(required=True, description="success message"),
-        'id num': fields.String(required=False, description="userid"),
-        'name': fields.String(required=False, description="username")
+        'id num': fields.String(required=False, description="user id"),
+        'name': fields.String(required=False, description="name")
     })
 
 
@@ -29,10 +29,27 @@ class UserDTO(object):
     n_user = api.model('new user request', {
         'first_name': fields.String(required=True, description="user's first name"),
         'last_name': fields.String(required=True, description="user's last name"),
-        'username': fields.String(required=True, description="user's username"),
-        'email': fields.String(required=True, description="user's email address"),
-        'password': fields.String(required=True, description="user's password")
+        'id_number': fields.Integer(required=True, description="user's id_number"),
+        'address': fields.String(required=True, description="user's address address"),
+        'password': fields.String(required=True, description="user's password"),
+        'tell': fields.String(required=True, description="user's tell"),
+        'role': fields.String(required=False, description="user's role")
     })
+    n_user_resp = api.model('Reesponse for adding a new user', {
+        'message': fields.String(required=True, description="success message")
+    })
+    all_users_resp = api.model('Reesponse for adding a new user', {
+        'message': fields.String(required=True, description="success message"),
+        'users' : fields.String(required=True, description="User message")
+    })
+    all_user_list_resp = api.model('Reesponse for adding a new user', {
+        'id_numbers': fields.Integer(required=True, description="user's id_number"),
+        'first_name': fields.String(required=True, description="user's first name"),
+        'last_name': fields.String(required=True, description="user's last name"),
+        'tell': fields.String(required=True, description="user's tell"),
+        'address': fields.String(required=True, description="user's address address")
+    })
+
 
 
 class IncidentDTO(object):
