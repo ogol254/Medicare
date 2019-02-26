@@ -21,6 +21,9 @@ CREATE TABLE IF NOT EXISTS incidents (
     description character varying(200) NOT NULL,
     status character varying(50) DEFAULT 0,
     location character varying(200) NULL,
+    assigned_to numeric (10) NULL,
+    tell numeric (15) NULL,
+    comment character varying(200) NULL,
     created_on timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
  );
 
@@ -52,4 +55,8 @@ CREATE TABLE IF NOT EXISTS sms (
     comment character varying(1000) NOT NULL,
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
+
+
+
+
 

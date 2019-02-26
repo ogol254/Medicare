@@ -1,5 +1,5 @@
 from flask_restplus import Resource
-from flask import jsonify, make_response, request
+from flask import jsonify, make_response, request, g
 import json
 import re
 import string
@@ -59,7 +59,7 @@ class AuthLogin(Resource):
         _validate_user(login_data)
 
         user = AuthModel(**login_data)
-        record = user.get_user_by_id(id_number)
+        record = AuthModel().get_user_by_id(id_number)
         if not record:
             return make_response(jsonify({
                 "message": "Your details were not found, please sign up"
@@ -69,7 +69,7 @@ class AuthLogin(Resource):
         if not check_password_hash(passwordharsh, password):
             raise Unauthorized("National Identification number and Password do not match")
 
-        token = user.encode_auth_token(id_number, role)
+        token = user.encode_auth_token(id_number)
         resp = {
             "message": "Success",
             "AuthToken": "{}".format(token.decode('utf-8')),
@@ -90,7 +90,7 @@ class AuthLogout(Resource):
             raise BadRequest("authorization header provided. This resource is secured.")
         auth_token = auth_header.split(" ")[1]
         response = AuthModel().decode_auth_token(auth_token)
-        if isinstance(response[0], str):
+        if isinstance(response, str):
             # token is either invalid or expired
             raise Unauthorized("You are not authorized to access this resource. {}".format(response))
         else:
@@ -111,7 +111,7 @@ class AuthValidate(Resource):
     @auth_required
     def post(self):
         """This endpoint validates a token"""
-        user = AuthModel().get_user_by_id(123456789)
+        user = AuthModel().get_user_by_id(g.user)
         id_num = int(user[3])
         name = user[0]
         resp = {

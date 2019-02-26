@@ -13,17 +13,6 @@ class AuthModel(BaseModel):
         self.password = generate_password_hash(password)
         self.db = init_db()
 
-    def get_user_by_id(self, id_num):
-        """return user from the db given a username"""
-        database = self.db
-        curr = database.cursor()
-        curr.execute(
-            """SELECT first_name, last_name, password, id_num, role \
-            FROM users WHERE id_num = '%s'""" % (id_num))
-        data = curr.fetchone()
-        curr.close()
-        return data
-
     def logout_user(self, token):
         """This function logs out a user by adding thei token to the blacklist table"""
         conn = self.db

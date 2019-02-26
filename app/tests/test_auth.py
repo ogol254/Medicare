@@ -9,8 +9,7 @@ from random import choice, randint
 
 # local imports
 from .. import create_app
-from ..db_config import destroy_db
-from ..db_config import init_test_db
+from ..db_config import destroy_db, init_test_db
 
 
 class TestAuth(unittest.TestCase):
@@ -41,8 +40,8 @@ class TestAuth(unittest.TestCase):
     def test_user_login(self):
         """Test that a user can login using a POST request"""
         login = self.login()
-        self.assertEqual(login.json['message'], 'Success')
-        # self.assertTrue(login.json['AuthToken'])
+        #self.assertEqual(login.json['message'], 'Success')
+        self.assertTrue(login.json['AuthToken'])
         #self.assertEqual(login.status_code, 401)
 
     # def test_user_logout(self):
@@ -60,18 +59,28 @@ class TestAuth(unittest.TestCase):
     #                                     content_type="application/json")
     #     self.assertEqual(logout_again.status_code, 401)
 
+    def test_invalid_data(self):
+        """Test that an unregistered user cannot log in"""
+        # generate random username and password
+        un_user = {
+            "password": "".join(choice(
+                                string.ascii_letters) for x in range(randint(7, 10))),
+            "id_number": "".join(choice(
+                string.ascii_letters) for x in range(randint(7, 10))),
+        }
+        # attempt to log in
+        login = self.client.post('/api/v1/auth/signin', data=json.dumps(un_user), content_type='application/json')
+        self.assertEqual(login.status_code, 400)
+
     # def test_an_unregistered_user(self):
     #     """Test that an unregistered user cannot log in"""
     #     # generate random username and password
     #     un_user = {
-    #         "username": "".join(choice(
-    #                             string.ascii_letters) for x in range(randint(7, 10))),
-    #         "passsword": "".join(choice(
-    #             string.ascii_letters) for x in range(randint(7, 10))),
-    #     }
+    #         }
     #     # attempt to log in
-    #     login = self.post_data('/api/v1/auth/login', data=un_user)
-    #     self.assertEqual(login.status_code, 400)
+    #     login = self.client.post('/api/v1/auth/signin', data=json.dumps(un_user), content_type='application/json')
+    #     #self.assertEqual(login.status_code, 400)
+    #     self.assertEqual(login.json['message'], "Not found")
 
     def tearDown(self):
         """This function destroys objests created during the test run"""

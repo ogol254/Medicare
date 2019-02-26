@@ -43,6 +43,17 @@ class BaseModel(object):
         if updated:
             return True
 
+    def get_user_by_id(self, id_num):
+        """return user from the db given a username"""
+        database = self.db
+        curr = database.cursor()
+        curr.execute(
+            """SELECT first_name, last_name, password, id_num, role \
+            FROM users WHERE id_num = '%s'""" % (id_num))
+        data = curr.fetchone()
+        curr.close()
+        return data
+
     def check_item_exists(self, table, field, data):
         """Check if the records exist"""
         curr = self.db.cursor()
@@ -55,7 +66,7 @@ class BaseModel(object):
             return False
 
     @staticmethod
-    def encode_auth_token(id_num, role):
+    def encode_auth_token(id_num):
         """Function to generate Auth token
         """
         # import pdb;pdb.set_trace()
@@ -64,7 +75,7 @@ class BaseModel(object):
             payload = {
                 "exp": datetime.utcnow() + timedelta(days=1),
                 "iat": datetime.utcnow(),
-                "sub": [int(id_num), role]
+                "sub": int(id_num)
             }
             token = jwt.encode(
                 payload,
