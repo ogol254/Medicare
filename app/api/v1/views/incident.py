@@ -50,7 +50,7 @@ class Incidents(Resource):
             name = body['name'].strip()
             location = body['location'].strip()
             type = body['type'].strip()
-            tell = body['tell'].strip().strip()
+            tell = body['tell'].strip()
             description = body['description'].strip()
 
         except (KeyError, IndexError) as e:
@@ -81,6 +81,9 @@ class Incidents(Resource):
     @api.marshal_with(g_resp, code=200)
     @auth_required
     def get(self):
+        if IncidentModel().get_user_by_id(g.user)[4] == 'normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
         resp = IncidentModel().get_all()
         incident_list = {
             "message": "Incidents",

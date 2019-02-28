@@ -83,10 +83,55 @@ class IncidentDTO(object):
     })
 
 
+class RecordDTO(object):
+    """incident Data Transfer Object"""
+    api = Namespace('record', description='records Proceses')
+    n_record = api.model('new record post  request', {
+        'id_num': fields.String(required=True, description="user's first name"),
+        'type': fields.String(required=True, description="type of the record"),
+        'description': fields.String(required=True, description="description of the record"),
+        'location': fields.String(required=True, description="location"),
+        'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
+        'incident_id': fields.Integer(required=True, description="Associated incident number"),
+        'created_by': fields.String(required=True, description="clinician or admin name who created this record"),
+    })
+    n_record_resp = api.model('Response for adding a new record', {
+        'message': fields.String(required=True, description="success message"),
+        'record_id': fields.Integer(required=True, description="record id number")
+    })
+    all_records_resp = api.model('Reesponse for adding a new user', {
+        'message': fields.String(required=True, description="success message"),
+        'records': fields.String(required=True, description="records")
+    })
+    _all_records_resp = api.model('Response for getting all records', {
+        'record_id': fields.Integer(required=True, description="record id"),
+        'name': fields.String(required=True, description="user's  name"),
+        'type': fields.String(required=True, description="type of the record"),
+        'description': fields.String(required=True, description="description of the record"),
+        'location': fields.String(required=True, description="user's last name"),
+        'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
+        'incident_id': fields.Integer(required=True, description="Associated incident number"),
+        'created_by': fields.String(required=True, description="creators's name"),
+        'created_on': fields.String(required=True, description="date reported")
+    })
+    single_record_resp = api.model('Response for getting all records', {
+        'record_id': fields.Integer(required=True, description="record id"),
+        'name': fields.String(required=True, description="user's  name"),
+        'type': fields.String(required=True, description="type of the record"),
+        'description': fields.String(required=True, description="description of the record"),
+        'location': fields.String(required=True, description="user's last name"),
+        'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
+        'incident_id': fields.Integer(required=True, description="Associated incident number"),
+        'created_by': fields.String(required=True, description="creators's name"),
+        'created_on': fields.String(required=True, description="date reported"),
+        'comments': fields.String(required=True, description="description of the comment")
+    })
+
+
 class CommentDTO(object):
     """docstring for comments posting"""
     api = Namespace('comment', description='comments Proceses')
     n_comment = api.model('new comment post  request', {
         'comment': fields.String(required=True, description="description of the comment"),
-        'incident_id': fields.Integer(required=True, description="incident_id")
+        'record_id': fields.Integer(required=True, description="incident_id")
     })

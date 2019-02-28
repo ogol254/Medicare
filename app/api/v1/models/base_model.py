@@ -21,6 +21,11 @@ class BaseModel(object):
         """initialize the database"""
         self.db = init_db()
 
+    def get_name(self, id_num):
+        _nc = self.get_user_by_id(id_num)
+        name = _nc[0] + ' ' + _nc[1]
+        return name
+
     def update_item(self, table, field, data, item_field, item_id):
         """update the field of an item given the item_id"""
 

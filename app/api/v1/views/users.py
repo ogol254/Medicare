@@ -39,6 +39,9 @@ class Users(Resource):
     @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
+        if UserModel().get_user_by_id(g.user)[4] == 'normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
         req_data = request.data.decode().replace("'", '"')
         if not req_data:
             raise BadRequest("Provide data in the request")
@@ -87,6 +90,9 @@ class Users(Resource):
     @api.doc(docu_string)
     @api.marshal_with(users_resp, code=200)
     def get(self):
+        if UserModel().get_user_by_id(g.user)[4] == 'normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
         auth_header = request.headers.get('Authorization')
         if not auth_header:
             raise BadRequest("authorization header provided. This resource is secured.")
