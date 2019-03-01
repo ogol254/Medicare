@@ -3,7 +3,7 @@
 ## Badges
 
 
-[![Build Status](https://travis-ci.org/ogol254/Medicare.svg?branch=develop)](https://travis-ci.org/ogol254/Medicare)  [![Maintainability](https://api.codeclimate.com/v1/badges/097ec4a07b131db7e02a/maintainability)](https://codeclimate.com/github/ogol254/Medicare/maintainability)
+[![Build Status](https://travis-ci.org/ogol254/Medicare.svg?branch=develop)](https://travis-ci.org/ogol254/Medicare)  [![Maintainability](https://api.codeclimate.com/v1/badges/097ec4a07b131db7e02a/maintainability)](https://codeclimate.com/github/ogol254/Medicare/maintainability) [![codecov](https://codecov.io/gh/ogol254/Medicare/branch/develop/graph/badge.svg)](https://codecov.io/gh/ogol254/Medicare)
 
 ## Postman collection 
 
