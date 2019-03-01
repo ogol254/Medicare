@@ -5,11 +5,12 @@ Authored by: ogol
 import unittest
 import json
 import string
+from contextlib import closing
 from random import choice, randint
 
 # local imports
 from .. import create_app
-from ..db_config import destroy_db, init_test_db
+from ..db_config import destroy_db, init_db
 
 
 class TestAuth(unittest.TestCase):
@@ -33,7 +34,7 @@ class TestAuth(unittest.TestCase):
         self.error_msg = "The path accessed / resource requested cannot be found, please check"
 
         with self.app.app_context():
-            self.db = init_test_db()
+            self.db = init_db()
 
     def post_user(self, path='', data={}):
         if not data:

@@ -1,4 +1,5 @@
 from flask import current_app
+from contextlib import closing
 import psycopg2
 import os
 
@@ -33,12 +34,12 @@ def init_test_db():
 def destroy_db():
     conn = connection(os.getenv('DATABASE_TEST_URL'))
     curr = conn.cursor()
-    blacklist = "DROP TABLE IF EXISTS blacklist CASCADE"
-    users = "DROP TABLE IF EXISTS users CASCADE"
-    incidents = "DROP TABLE IF EXISTS incidents CASCADE"
-    comments = "DROP TABLE IF EXISTS comments CASCADE"
-    records = "DROP TABLE IF EXISTS records CASCADE"
-    facilities = "DROP TABLE IF EXISTS facilities CASCADE"
+    blacklist = """DROP TABLE IF EXISTS blacklist CASCADE; """
+    users = """DROP TABLE IF EXISTS users CASCADE; """
+    incidents = """DROP TABLE IF EXISTS incidents CASCADE; """
+    comments = """DROP TABLE IF EXISTS comments CASCADE; """
+    records = """DROP TABLE IF EXISTS records CASCADE; """
+    facilities = """DROP TABLE IF EXISTS facilities CASCADE; """
     queries = [blacklist, users, incidents, comments, records, facilities]
     try:
         for query in queries:
