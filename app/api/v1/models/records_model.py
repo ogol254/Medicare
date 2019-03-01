@@ -75,9 +75,10 @@ class RecordModel(BaseModel):
     def get_single_records(self, record_id):
         dbconn = init_db()
         curr = dbconn.cursor()
-        curr.execute("""SELECT record_id, created_by, id_num, type, description, 
-            location, facility_id, status, created_on FROM records;""")
-        data = curr.fetchone()[0]
+        query = """SELECT record_id, created_by, id_num, type, description, location, 
+            facility_id, status, created_on FROM records WHERE record_id=%s"""
+        curr.execute(query, [record_id])
+        data = curr.fetchone()
         resp = []
         curr.close()
 

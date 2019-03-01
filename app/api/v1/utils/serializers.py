@@ -87,13 +87,13 @@ class RecordDTO(object):
     """incident Data Transfer Object"""
     api = Namespace('record', description='records Proceses')
     n_record = api.model('new record post  request', {
-        'id_num': fields.String(required=True, description="user's first name"),
+        'id_num': fields.Integer(required=True, description="user's first name"),
         'type': fields.String(required=True, description="type of the record"),
         'description': fields.String(required=True, description="description of the record"),
         'location': fields.String(required=True, description="location"),
-        'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
+        'facility_id': fields.Integer(required=True, description="medical facility assigned to this doctor"),
         'incident_id': fields.Integer(required=True, description="Associated incident number"),
-        'created_by': fields.String(required=True, description="clinician or admin name who created this record"),
+        'created_by': fields.Integer(required=True, description="clinician or admin name who created this record"),
     })
     n_record_resp = api.model('Response for adding a new record', {
         'message': fields.String(required=True, description="success message"),
@@ -123,15 +123,28 @@ class RecordDTO(object):
         'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
         'incident_id': fields.Integer(required=True, description="Associated incident number"),
         'created_by': fields.String(required=True, description="creators's name"),
-        'created_on': fields.String(required=True, description="date reported"),
+        'created_on': fields.String(required=True, description="date reported")
+    })
+    get_single_record = api.model('Response for getting a specific records', {
+        'message': fields.String(required=True, description="success message"),
+        'records': fields.String(required=True, description="records"),
         'comments': fields.String(required=True, description="description of the comment")
     })
-
+    comments = api.model('Comment Response for getting a specific recors', {
+        'comment_id': fields.String(required=True, description="success message"),
+        'comment': fields.String(required=True, description="description of the comment"),
+        'created_by': fields.String(required=True, description="creators's name"),
+        'created_on': fields.String(required=True, description="date reported")
+    })
 
 class CommentDTO(object):
-    """docstring for comments posting"""
-    api = Namespace('comment', description='comments Proceses')
+    """docstring for CommentDTO"""
+    api = Namespace('record', description='records Proceses')
     n_comment = api.model('new comment post  request', {
-        'comment': fields.String(required=True, description="description of the comment"),
-        'record_id': fields.Integer(required=True, description="incident_id")
+        'comment': fields.String(required=True, description="description of the comment")
     })
+    n_comment_resp = api.model('Response for adding a new record', {
+        'message': fields.String(required=True, description="success message"),
+        'comment_id': fields.Integer(required=True, description="comment id number")
+    })
+    

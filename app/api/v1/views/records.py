@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, Forbidden
 
 # local imports
-from ..models.recordd_models import RecordModel
+from ..models.records_model import RecordModel
 from ..models.comment_models import CommentModel
 from ..utils.serializers import RecordDTO
 from ..utils.auth_validation import auth_required
@@ -19,6 +19,8 @@ new_record = RecordDTO().n_record
 new_record_resp = RecordDTO().n_record_resp
 all_record = RecordDTO().all_records_resp
 single_record_resp = RecordDTO().single_record_resp
+g_resp = RecordDTO().get_single_record
+gc_resp = RecordDTO().comments
 
 
 def _validate_record(record):
@@ -41,6 +43,7 @@ class Records(Resource):
     @api.doc(docu_string)
     @api.expect(new_record, validate=True)
     @api.marshal_with(new_record_resp, code=201)
+    @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
         req_data = request.data.decode().replace("'", '"')
@@ -48,21 +51,21 @@ class Records(Resource):
             raise BadRequest("Provide data in the request")
         body = json.loads(req_data)
         try:
-            incident_id = body['incident_id'].strip()
+            incident_id = body['incident_id']
             location = body['location'].strip()
             type = body['type'].strip()
-            id_num = body['id_num'].strip()
+            id_num = body['id_num']
             description = body['description'].strip()
             facility_id = body['facility_id']
 
-            if RecordModel().check_exists("incdents", "incident_id", incident_id) == False:
+            if RecordModel().check_exists("incidents", "incident_id", incident_id) == False:
                 raise BadRequest("This incident does not exist")
 
-            if not get_user_by_id(id_num):
+            if not RecordModel().get_user_by_id(id_num):
                 raise BadRequest("This user does not exist in our users list, please create account first")
 
-            if RecordModel().check_exists("facilities", "facility_id", facility_id) == False:
-                raise BadRequest("This facility does not exist")
+            # if RecordModel().check_exists("facilities", "facility_id", facility_id) == False:
+            #     raise BadRequest("This facility does not exist")
 
         except (KeyError, IndexError) as e:
             raise BadRequest
@@ -121,6 +124,8 @@ class GetSpecifiedRecord(Resource):
 
         record = RecordModel().get_single_records(record_id)
         comments = CommentModel().get_specif_record_comments(record_id)
+        if not comments:
+            comments = "No comments exists"
         record = {
             "message": "record",
             "records": record,
@@ -129,7 +134,7 @@ class GetSpecifiedRecord(Resource):
 
         return record, 200
 
-    @api.marshal_with(g_resp, code=200)
+    @api.marshal_with(all_record, code=200)
     @auth_required
     def put(self, record_id):
         if RecordModel().check_exists("records", "record_id", record_id) == False:

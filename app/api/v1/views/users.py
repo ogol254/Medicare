@@ -79,33 +79,25 @@ class Users(Resource):
                 "message": "User already exists"
             }), 409)
         elif isinstance(resp, int):
-            resp = {
+            respn = {
                 "message": "Successfully added"
             }
 
-        return resp, 201
+        return respn, 201
 
     docu_string = "This endpoint allows to get list of all users."
 
     @api.doc(docu_string)
     @api.marshal_with(users_resp, code=200)
+    @auth_required
     def get(self):
         if UserModel().get_user_by_id(g.user)[4] == 'normal':
             raise Unauthorized("You are not permitted to preform this operation")
 
-        auth_header = request.headers.get('Authorization')
-        if not auth_header:
-            raise BadRequest("authorization header provided. This resource is secured.")
-        auth_token = auth_header.split(" ")[1]
-        response = UserModel().decode_auth_token(auth_token)
-        if isinstance(response, str):
-            # token is either invalid or expired
-            raise Unauthorized("You are not authorized to access this resource. {}".format(response))
-        else:
-            resp = UserModel().get_users()
-            users_list = {
-                "message": "Users",
-                "users": resp
-            }
+        resp = UserModel().get_users()
+        users_list = {
+            "message": "Users",
+            "users": resp
+        }
 
-            return users_list, 200
+        return users_list, 200
