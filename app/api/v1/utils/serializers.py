@@ -75,7 +75,7 @@ class IncidentDTO(object):
         'type': fields.String(required=True, description="type of the incident"),
         'description': fields.String(required=True, description="description of the incident"),
         'comment': fields.String(required=True, description="description of the comment"),
-        'location': fields.String(required=True, description="user's last name"),
+        'location': fields.String(required=True, description="address location"),
         'assigned_to': fields.String(required=True, description="name of the officer assigned to the incident"),
         'tell': fields.String(required=True, description="user's tell"),
         'location': fields.String(required=True, description="user's address address"),
@@ -108,7 +108,7 @@ class RecordDTO(object):
         'name': fields.String(required=True, description="user's  name"),
         'type': fields.String(required=True, description="type of the record"),
         'description': fields.String(required=True, description="description of the record"),
-        'location': fields.String(required=True, description="user's last name"),
+        'location': fields.String(required=True, description="address location"),
         'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
         'incident_id': fields.Integer(required=True, description="Associated incident number"),
         'created_by': fields.String(required=True, description="creators's name"),
@@ -119,7 +119,7 @@ class RecordDTO(object):
         'name': fields.String(required=True, description="user's  name"),
         'type': fields.String(required=True, description="type of the record"),
         'description': fields.String(required=True, description="description of the record"),
-        'location': fields.String(required=True, description="user's last name"),
+        'location': fields.String(required=True, description="address location"),
         'facility_id': fields.String(required=True, description="medical facility assigned to this doctor"),
         'incident_id': fields.Integer(required=True, description="Associated incident number"),
         'created_by': fields.String(required=True, description="creators's name"),
@@ -137,6 +137,7 @@ class RecordDTO(object):
         'created_on': fields.String(required=True, description="date reported")
     })
 
+
 class CommentDTO(object):
     """docstring for CommentDTO"""
     api = Namespace('record', description='records Proceses')
@@ -147,4 +148,28 @@ class CommentDTO(object):
         'message': fields.String(required=True, description="success message"),
         'comment_id': fields.Integer(required=True, description="comment id number")
     })
-    
+
+
+class FacilitiesDTO(object):
+    """docstring for FacilitiesDTO"""
+    api = Namespace('facilities', description='facilities Proceses')
+    n_facility = api.model('new facility', {
+        'name': fields.String(required=True, description="Name of the location"),
+        'location': fields.String(required=True, description="address location"),
+        'contact': fields.String(required=True, description="user's tell"),
+    })
+    n_facility_resp = api.model('Response for adding a new facility', {
+        'message': fields.String(required=True, description="success message"),
+        'facility_id': fields.Integer(required=True, description="facility id number")
+    })
+    _facility_resp = api.model('Reesponse for adding a new user', {
+        'message': fields.String(required=True, description="success message"),
+        'facilities': fields.String(required=True, description="facilities")
+    })
+    all_facilities = api.model('All facilities', {
+        'facility_id': fields.Integer(required=True, description="facility id number"),
+        'name': fields.String(required=True, description="Name of the location"),
+        'location': fields.String(required=True, description="address location"),
+        'created_by': fields.String(required=True, description="creators's name"),
+        'contact': fields.String(required=True, description="user's tell")
+    })

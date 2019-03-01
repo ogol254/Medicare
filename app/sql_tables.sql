@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS sms (
 
 CREATE TABLE IF NOT EXISTS facilities (
     facility_id serial PRIMARY KEY NOT NULL,
-    name character varying(20) NOT NULL,
+    name character varying(100) NOT NULL,
     location character varying(200) NOT NULL,
     contact numeric (15) NOT NULL, 
     created_by character varying(20) NOT NULL,

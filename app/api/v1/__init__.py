@@ -13,6 +13,7 @@ from .views.users import api as user_ns
 from .views.incident import api as inci_ns
 from .views.records import api as record_ns
 from .views.comments import api as cm_ns
+from .views.facilities import api as f_ns
 
 
 api = Api(version_one,
@@ -22,6 +23,7 @@ api = Api(version_one,
 
 api.add_namespace(auth_ns, path="/auth")
 api.add_namespace(user_ns, path="/users")
+api.add_namespace(f_ns, path="/facilities")
 api.add_namespace(inci_ns, path="/incidents")
 api.add_namespace(record_ns, path="/records")
 api.add_namespace(cm_ns, path="/records/<int:record_id>/comment")
