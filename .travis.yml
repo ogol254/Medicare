@@ -24,7 +24,7 @@ before_script:
 
 
 script:
-  - py.test --cov app -v
+  - py.test --cov app/ 
 
 after_success:
   - coveralls
