@@ -24,7 +24,7 @@ before_script:
 
 
 script:
-  - py.test --cov-report term-missing --cov app -v
+  - py.test --cov app -v
 
 after_success:
   - coveralls
