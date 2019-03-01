@@ -23,14 +23,11 @@ def _validate_user(user):
         if not value:
             raise BadRequest("{} is lacking. It is a required field".format(key))
         # validate length
-        if key == "id_number" or key == "password":
+        if key == "password":
             if len(value) < 5:
                 raise BadRequest("The {} provided is too short".format(key))
             elif len(value) > 15:
                 raise BadRequest("The {} provided is too long".format(key))
-        if key == "id_number":
-            if value.isdigit() == False:
-                raise BadRequest("The {} provided contain either strings or alphanumeric characters".format(key))
 
 
 @api.route("/signin")
@@ -40,7 +37,7 @@ class AuthLogin(Resource):
     docu_string = "This endpoint accepts POST requests to allow a registered user to log in."
 
     @api.doc(docu_string)
-    @api.marshal_with(_user_resp, code=200)
+    #@api.marshal_with(_user_resp, code=200)
     @api.expect(login_user, validate=True)
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
@@ -48,7 +45,7 @@ class AuthLogin(Resource):
         if not req_data:
             raise BadRequest("Provide data in the request")
         login_details = json.loads(req_data)
-        id_number = login_details['id_number'].strip()
+        id_number = login_details['id_number']
         password = login_details['password'].strip()
 
         login_data = {

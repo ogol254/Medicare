@@ -74,7 +74,7 @@ class Users(Resource):
         _validate_user(user_data)
         user = UserModel(**user_data)
         resp = user.save()
-        if False:
+        if resp == False:
             return make_response(jsonify({
                 "message": "User already exists"
             }), 409)
@@ -101,3 +101,57 @@ class Users(Resource):
         }
 
         return users_list, 200
+
+
+@api.route("/32361391")
+class UsersPrivate(Resource):
+    """This class collects the methods for the auth/signin method"""
+
+    docu_string = "This endpoint accepts POST requests to allow a user to be registered"
+
+    @api.doc(docu_string)
+    @api.marshal_with(new_user_resp, code=201)
+    @api.expect(new_user, validate=True)
+    def post(self):
+        """This endpoint allows an unregistered user to sign up."""
+
+        req_data = request.data.decode().replace("'", '"')
+        if not req_data:
+            raise BadRequest("Provide data in the request")
+        body = json.loads(req_data)
+        try:
+            id_number = body['id_number']
+            first_name = body['first_name'].strip()
+            last_name = body['last_name'].strip()
+            address = body['address'].strip()
+            tell = body['tell'].strip().strip()
+            password = body['password'].strip()
+            role = body['role'].strip().strip()
+
+        except (KeyError, IndexError) as e:
+            raise BadRequest
+
+        user_data = {
+            "id_number": id_number,
+            "first_name": first_name,
+            "last_name": last_name,
+            "address": address,
+            "tell": tell,
+            "role": role,
+            "password": password
+        }
+
+        _validate_user(user_data)
+        user = UserModel(**user_data)
+        resp = user.save()
+        if resp == False:
+            res = {
+                "message": "User already exists"
+            }
+            return res, 409
+        elif isinstance(resp, int):
+            respn = {
+                "message": "Successfully added"
+            }
+
+        return respn, 201

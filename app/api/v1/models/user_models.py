@@ -64,4 +64,4 @@ class UserModel(BaseModel):
         id_num = curr.fetchone()[0]
         database.commit()
         curr.close()
-        return id_num
+        return int(id_num)

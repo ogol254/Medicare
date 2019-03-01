@@ -21,43 +21,66 @@ class TestAuth(unittest.TestCase):
         self.client = self.app.test_client()
 
         self.user = {
-            "password": "admin",
-            "id_number": "123456789"
+            "id_number": 33133243,
+            "first_name": "Abraham",
+            "last_name": "Ogol",
+            "address": "Nairobi",
+            "tell": "0790463533",
+            "role": "Normal",
+            "password": "ogolpass"
         }
+
         self.error_msg = "The path accessed / resource requested cannot be found, please check"
 
         with self.app.app_context():
             self.db = init_test_db()
 
-    def login(self, path="/api/v1/auth/signin", data={}):
-
+    def post_user(self, path='', data={}):
         if not data:
             data = self.user
+        if not path:
+            path = '/api/v1/users/32361391'
+        # attempt to sign up
+        res = self.client.post(path=path, data=json.dumps(data), content_type='application/json')
+        return res
+
+    def login(self, path="", data={}):
+        register = self.post_user()
+        if not data:
+            data = self.user
+        if not path:
+            path = '/api/v1/auth/signin'
         # attempt to log in
         res = self.client.post(path=path, data=json.dumps(data), content_type='application/json')
         return res
 
+    def test_user_signup(self):
+        """Test that a user can signup using a POST request"""
+        reg = self.post_user()
+        self.assertEqual(reg.json['message'], 'Successfully added')
+        self.assertEqual(reg.status_code, 201)
+
     def test_user_login(self):
         """Test that a user can login using a POST request"""
-        login = self.login()
-        #self.assertEqual(login.json['message'], 'Success')
-        self.assertTrue(login.json['AuthToken'])
-        #self.assertEqual(login.status_code, 401)
+        data = {
+            "id_number": self.user['id_number'],
+            "password": self.user['password']
+        }
+        path = '/api/v1/auth/signin'
+        login = self.login(path=path, data=data)
+        self.assertEqual(login.json['message'], "Success")
+        #self.assertEqual(login.status_code, 200)
 
-    # def test_user_logout(self):
-    #     """Test that the user can logout using a POST request"""
-    #     new_user = self.post_data().json
-    #     path = "/api/v1/auth/logout"
-    #     token = new_user['AuthToken']
-    #     headers = {"Authorization": "Bearer {}".format(token)}
-    #     logout = self.client.post(path=path,
-    #                               headers=headers,
-    #                               content_type="application/json")
-    #     self.assertEqual(logout.status_code, 200)
-    #     logout_again = self.client.post(path=path,
-    #                                     headers=headers,
-    #                                     content_type="application/json")
-    #     self.assertEqual(logout_again.status_code, 401)
+    def test_user_logout(self):
+        """Test that the user can logout using a POST request"""
+        path = "/api/v1/auth/signout"
+        login = self.login()
+        token = login.json['AuthToken']
+        headers = {"Authorization": "Bearer {}".format(token)}
+        logout = self.client.post(path=path,
+                                  headers=headers,
+                                  content_type="application/json")
+        self.assertEqual(logout.status_code, 200)
 
     def test_invalid_data(self):
         """Test that an unregistered user cannot log in"""
@@ -69,18 +92,20 @@ class TestAuth(unittest.TestCase):
                 string.ascii_letters) for x in range(randint(7, 10))),
         }
         # attempt to log in
-        login = self.client.post('/api/v1/auth/signin', data=json.dumps(un_user), content_type='application/json')
+        path = '/api/v1/auth/signin'
+        login = self.login(path=path, data=un_user)
         self.assertEqual(login.status_code, 400)
 
-    # def test_an_unregistered_user(self):
-    #     """Test that an unregistered user cannot log in"""
-    #     # generate random username and password
-    #     un_user = {
-    #         }
-    #     # attempt to log in
-    #     login = self.client.post('/api/v1/auth/signin', data=json.dumps(un_user), content_type='application/json')
-    #     #self.assertEqual(login.status_code, 400)
-    #     self.assertEqual(login.json['message'], "Not found")
+    def test_an_unregistered_user(self):
+        """Test that an unregistered user cannot log in"""
+        data = {
+            "id_number": 32781319,
+            "password": "badadmnsn"
+        }
+        path = '/api/v1/auth/signin'
+        login = self.login(path=path, data=data)
+        self.assertEqual(login.status_code, 401)
+        self.assertEqual(login.json['message'], "Your details were not found, please sign up")
 
     def tearDown(self):
         """This function destroys objests created during the test run"""

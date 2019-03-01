@@ -8,7 +8,7 @@ class AuthDTO(object):
     """User Data Transfer Object"""
     api = Namespace('auth', description='user authentication and signup resources')
     user = api.model('login request', {
-        'id_number': fields.String(required=True, description="user's id number"),
+        'id_number': fields.Integer(required=True, description="user's id number"),
         'password': fields.String(required=True, description="user's password")
     })
     user_resp = api.model('response to login', {

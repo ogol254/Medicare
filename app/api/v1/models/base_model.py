@@ -108,9 +108,10 @@ class BaseModel(object):
         """This function takes in an auth
         token and decodes it
         """
+        APP = create_app()
         if self.blacklisted(auth_token):
             return "Token has been blacklisted"
-        secret = os.getenv("SECRET_KEY")
+        secret = APP.config.get('SECRET_KEY')
         try:
             payload = jwt.decode(auth_token, secret)
             return payload['sub']  # user id

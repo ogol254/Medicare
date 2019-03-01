@@ -22,24 +22,24 @@ def init_db():
 
 def init_test_db():
     conn = connection(os.getenv('DATABASE_TEST_URL'))
-    # destroy_db()
+    destroy_db()
     with conn as conn, conn.cursor() as cursor:
         with current_app.open_resource('sql_tables.sql', mode='r') as sql:
             cursor.execute(sql.read())
-
         conn.commit()
         return conn
 
 
 def destroy_db():
-    test_url = current_app.config['DATABASE_TEST_URL']
     conn = connection(os.getenv('DATABASE_TEST_URL'))
     curr = conn.cursor()
     blacklist = "DROP TABLE IF EXISTS blacklist CASCADE"
     users = "DROP TABLE IF EXISTS users CASCADE"
     incidents = "DROP TABLE IF EXISTS incidents CASCADE"
     comments = "DROP TABLE IF EXISTS comments CASCADE"
-    queries = [blacklist, users, incidents, comments]
+    records = "DROP TABLE IF EXISTS records CASCADE"
+    facilities = "DROP TABLE IF EXISTS facilities CASCADE"
+    queries = [blacklist, users, incidents, comments, records, facilities]
     try:
         for query in queries:
             curr.execute(query)
