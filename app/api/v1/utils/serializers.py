@@ -173,3 +173,18 @@ class FacilitiesDTO(object):
         'created_by': fields.String(required=True, description="creators's name"),
         'contact': fields.String(required=True, description="user's tell")
     })
+
+
+class UserBioDTO(object):
+    """docstring for UserBioDTO"""
+    api = Namespace('bios', description='facilities Proceses')
+    n_user = api.model('new bio', {
+        'date_of_birth': fields.String(required=True, description="date of birth of user")
+    })
+    n_user_resp = api.model('Reesponse for adding a new users bio', {
+        'message': fields.String(required=True, description="success message")
+    })
+    all_users_resp = api.model('Reesponse for adding a new user', {
+        'message': fields.String(required=True, description="success message"),
+        'Bio_data': fields.String(required=True, description="User message")
+    })

@@ -67,5 +67,14 @@ CREATE TABLE IF NOT EXISTS facilities (
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS bio (
+    id_number numeric (10) PRIMARY KEY NOT NULL,
+    email character varying(40) NULL,
+    blood_group character varying(40) NULL,
+    date_of_birth character varying(40) NOT NULL,
+    weight character varying(3) NULL,
+    height character varying(3) NULL,
+    secondary_tell character varying(50) NULL
+);
 
 

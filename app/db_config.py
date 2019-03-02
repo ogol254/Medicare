@@ -40,7 +40,9 @@ def destroy_db():
     comments = """DROP TABLE IF EXISTS comments CASCADE; """
     records = """DROP TABLE IF EXISTS records CASCADE; """
     facilities = """DROP TABLE IF EXISTS facilities CASCADE; """
-    queries = [blacklist, users, incidents, comments, records, facilities]
+    bio = """DROP TABLE IF EXISTS bio CASCADE; """
+    sms = """DROP TABLE IF EXISTS sms CASCADE; """
+    queries = [blacklist, users, incidents, comments, records, facilities, bio, sms]
     try:
         for query in queries:
             curr.execute(query)
