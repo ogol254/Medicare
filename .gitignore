@@ -3,3 +3,4 @@ env/
 *.pyc
 .pytest_cache/
 manage.py
+.coverage
