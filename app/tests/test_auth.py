@@ -20,7 +20,7 @@ class TestAuth(BaseTest):
 
     def test_user_signup(self):
         """Test that a user can signup using a POST request"""
-        reg = self.post_user(role="admin")
+        reg = self.post_user(role="Admin")
         self.assertEqual(reg.json['message'], 'Successfully added')
         self.assertEqual(reg.status_code, 201)
 

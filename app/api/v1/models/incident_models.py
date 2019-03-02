@@ -30,9 +30,8 @@ class IncidentModel(BaseModel):
 
         for i, items in enumerate(data):
             incident_id, created_by, type, description, location, status, assigned_to, tell, comment, created_on = items
-            if assigned_to != None:
-                _n = BaseModel().get_user_by_id(assigned_to)
-                assigned_to = _n[0] + ' ' + _n[1]
+            if assigned_to is not None:
+                assigned_to = BaseModel().get_name(assigned_to)
             incidents = dict(
                 incident_id=int(incident_id),
                 reported_by=created_by,
@@ -40,6 +39,34 @@ class IncidentModel(BaseModel):
                 description=description,
                 location=location,
                 status=status,
+                tell=int(tell),
+                comment=comment,
+                assigned_to=assigned_to,
+                created_on=created_on.strftime("%B %d, %Y")
+            )
+            resp.append(incidents)
+        return resp
+
+    def get_with_status(self, status):
+        dbconn = init_db()
+        curr = dbconn.cursor()
+        query = """SELECT incident_id, created_by, type, description, location,
+            assigned_to, tell, comment, created_on FROM incidents WHERE status=%s;"""
+        curr.execute(query, [status])
+        data = curr.fetchall()
+        resp = []
+        curr.close()
+
+        for i, items in enumerate(data):
+            incident_id, created_by, type, description, location, assigned_to, tell, comment, created_on = items
+            if assigned_to is not None:
+                assigned_to = BaseModel().get_name(assigned_to)
+            incidents = dict(
+                incident_id=int(incident_id),
+                reported_by=created_by,
+                type=type,
+                description=description,
+                location=location,
                 tell=int(tell),
                 comment=comment,
                 assigned_to=assigned_to,
@@ -93,10 +120,8 @@ class IncidentModel(BaseModel):
         curr.close()
 
         incident_id, created_by, type, description, location, status, assigned_to, tell, comment, created_on = data
-        if assigned_to != None:
-            _n = BaseModel().get_user_by_id(assigned_to)
-            assigned_to = _n[0] + ' ' + _n[1]
-
+        if assigned_to is not None:
+            assigned_to = BaseModel().get_name(assigned_to)
         incidents = dict(
             incident_id=int(incident_id),
             reported_by=created_by,
@@ -110,4 +135,42 @@ class IncidentModel(BaseModel):
             created_on=created_on.strftime("%B %d, %Y")
         )
         resp.append(incidents)
+        return resp
+
+
+class UserIncidentsModel(BaseModel):
+    """This class encapsulates the functions of the user model"""
+
+    def __init__(self, id_num):
+        """initialize the user model"""
+        self.id = id_num
+        self.db = init_db()
+
+    def get_all_incident_assigned_to(self):
+        dbconn = init_db()
+        curr = dbconn.cursor()
+        query = """SELECT incident_id, type, description, tell, 
+            comment, created_on FROM incidents WHERE assigned_to=%s;"""
+        curr.execute(query, [self.id])
+        data = curr.fetchall()
+        resp = []
+        curr.close()
+
+        for i, items in enumerate(data):
+            incident_id, created_by, type, description, location, status, tell, comment, created_on = items
+            if assigned_to != None:
+                _n = BaseModel().get_user_by_id(assigned_to)
+                assigned_to = _n[0] + ' ' + _n[1]
+            incidents = dict(
+                incident_id=int(incident_id),
+                reported_by=created_by,
+                type=type,
+                description=description,
+                location=location,
+                status=status,
+                tell=int(tell),
+                comment=comment,
+                created_on=created_on.strftime("%B %d, %Y")
+            )
+            resp.append(incidents)
         return resp

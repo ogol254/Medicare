@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, Forbidden
 
 from ..models.user_models import UserModel
+from ..models.incident_models import UserIncidentsModel
+from ..models.records_model import UserRecordsModel
 from ..utils.serializers import UserDTO
 from ..utils.auth_validation import auth_required
 
@@ -75,9 +77,10 @@ class Users(Resource):
         user = UserModel(**user_data)
         resp = user.save()
         if resp == False:
-            return make_response(jsonify({
+            res = {
                 "message": "User already exists"
-            }), 409)
+            }
+            return res, 409
         elif isinstance(resp, int):
             respn = {
                 "message": "Successfully added"
@@ -91,7 +94,7 @@ class Users(Resource):
     @api.marshal_with(users_resp, code=200)
     @auth_required
     def get(self):
-        if UserModel().get_user_by_id(g.user)[4] == 'normal':
+        if UserModel().get_user_by_id(g.user)[4] != 'Admin':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = UserModel().get_users()
@@ -101,6 +104,53 @@ class Users(Resource):
         }
 
         return users_list, 200
+
+
+@api.route("/incidents")
+class UserIncidents(Resource):
+
+    @auth_required
+    def get(self):
+        role = UserModel().get_user_by_id(g.user)[4]
+        if role == 'Normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
+        id_mumber = UserModel().get_user_by_id(g.user)[3]
+        usr = UserIncidentsModel(id_mumber)
+        resp = usr.get_all_incident_assigned_to()
+        if not resp:
+            resp = "No existing incidents assigned to you"
+        user_incidents = {
+            "user": UserModel().get_name(id_mumber),
+            "incidents": resp
+        }
+
+        return user_incidents, 200
+
+
+@api.route("/records")
+class UserRecords(Resource):
+
+    @auth_required
+    def get(self):
+
+        id_mumber = UserModel().get_user_by_id(g.user)[3]
+        usr = UserRecordsModel(id_mumber)
+        resp = usr.get_all_records_assigned_to()
+        if not resp:
+            resp = "--empty--"
+        user_records = {
+            "user": UserModel().get_name(id_mumber),
+            "Records": resp
+        }
+
+        return user_records, 200
+
+
+@api.route("/<int:id_num>")
+class UserBio(Resource):
+    def get(self, id_num):
+        pass
 
 
 @api.route("/32361391")

@@ -53,8 +53,8 @@ class BaseModel(object):
         database = self.db
         curr = database.cursor()
         curr.execute(
-            """SELECT first_name, last_name, password, id_num, role \
-            FROM users WHERE id_num = '%s'""" % (id_num))
+            """SELECT first_name, last_name, password, id_num, role\
+            FROM users WHERE id_num='%s'""" % (id_num))
         data = curr.fetchone()
         curr.close()
         return data

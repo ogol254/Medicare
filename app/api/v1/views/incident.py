@@ -93,6 +93,24 @@ class Incidents(Resource):
         return incident_list, 200
 
 
+@api.route("/<string:status>")
+class IncidentStatus(Resource):
+    """This class collects the methods for the auth/signin method"""
+
+    @auth_required
+    def get(self, status):
+        if IncidentModel().get_user_by_id(g.user)[4] == 'Normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
+        resp = IncidentModel().get_with_status(status)
+        incident_list = {
+            "message": "Incidents",
+            "incidents": resp
+        }
+
+        return incident_list, 200
+
+
 @api.route('/<int:incident_id>')
 class GetSpecifiedIncident(Resource):
     """docstring for GetSpecifiedIncident"""

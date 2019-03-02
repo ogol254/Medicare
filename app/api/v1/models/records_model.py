@@ -23,7 +23,7 @@ class RecordModel(BaseModel):
     def get_all(self):
         dbconn = init_db()
         curr = dbconn.cursor()
-        curr.execute("""SELECT record_id, created_by, id_num, type, description, 
+        curr.execute("""SELECT record_id, created_by, id_num, type, description,
             location, facility_id, status, created_on FROM records;""")
         data = curr.fetchall()
         resp = []
@@ -75,7 +75,7 @@ class RecordModel(BaseModel):
     def get_single_records(self, record_id):
         dbconn = init_db()
         curr = dbconn.cursor()
-        query = """SELECT record_id, created_by, id_num, type, description, location, 
+        query = """SELECT record_id, created_by, id_num, type, description, location,
             facility_id, status, created_on FROM records WHERE record_id=%s"""
         curr.execute(query, [record_id])
         data = curr.fetchone()
@@ -96,4 +96,39 @@ class RecordModel(BaseModel):
             created_on=created_on.strftime("%B %d, %Y")
         )
         resp.append(records)
+        return resp
+
+
+class UserRecordsModel(BaseModel):
+    """This class encapsulates the functions of the user model"""
+
+    def __init__(self, id_number):
+        """initialize the user model"""
+        self.number = id_number
+        self.db = init_db()
+
+    def get_all_records_assigned_to(self):
+        dbconn = init_db()
+        curr = dbconn.cursor()
+        query = """SELECT record_id, created_by, type, description,location, facility_id,
+            status, created_on FROM records WHERE id_num=%s;"""
+        curr.execute(query, [self.number])
+        data = curr.fetchall()
+        resp = []
+        curr.close()
+
+        for i, items in enumerate(data):
+            record_id, created_by, type, description, location, facility_id, status, created_on = items
+
+            records = dict(
+                record_id=int(record_id),
+                created_by=BaseModel().get_name(created_by),
+                type=type,
+                description=description,
+                location=location,
+                facility_id=int(facility_id),
+                status=status,
+                created_on=created_on.strftime("%B %d, %Y")
+            )
+            resp.append(records)
         return resp

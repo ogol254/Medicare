@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS incidents (
     created_by character varying(20) NOT NULL,
     type character varying(20)  NOT NULL,
     description character varying(200) NOT NULL,
-    status character varying(50) DEFAULT 0,
+    status character varying(10) DEFAULT 0,
     location character varying(200) NULL,
     assigned_to numeric (10) NULL,
     tell numeric (15) NULL,

@@ -114,7 +114,7 @@ class BaseTest(unittest.TestCase):
             return res
 
     def admin_login(self):
-        register = self.post_user(role="admin")
+        register = self.post_user(role="Admin")
         login = self.post(path="/api/v1/auth/signin", data=self.user_admin, auth=None)
         return login
 
