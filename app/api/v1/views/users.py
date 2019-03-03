@@ -41,7 +41,7 @@ class Users(Resource):
     @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
-        if UserModel().get_user_by_id(g.user)[4] == 'normal':
+        if UserModel().get_user_by_id(g.user)[4] == 'Normal':
             raise Unauthorized("You are not permitted to preform this operation")
 
         req_data = request.data.decode().replace("'", '"')
@@ -55,7 +55,7 @@ class Users(Resource):
             address = body['address'].strip()
             tell = body['tell'].strip().strip()
             password = body['password'].strip()
-            if UserModel().get_user_by_id(g.user)[4] == 'admin':
+            if UserModel().get_user_by_id(g.user)[4] == 'Admin':
                 role = body['role'].strip().strip()
             else:
                 role = "normal"
@@ -94,7 +94,8 @@ class Users(Resource):
     @api.marshal_with(users_resp, code=200)
     @auth_required
     def get(self):
-        if UserModel().get_user_by_id(g.user)[4] != 'Admin':
+        role = UserModel().get_user_by_id(g.user)[4]
+        if role == 'Normal' or role == 'clinician':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = UserModel().get_users()

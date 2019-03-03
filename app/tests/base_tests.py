@@ -28,12 +28,12 @@ class BaseTest(unittest.TestCase):
             "last_name": "Ogol",
             "address": "Nairobi",
             "tell": "0790463533",
-            "role": "admin",
+            "role": "Admin",
             "password": "ogolpass"
         }
 
         self.user_clinician = {
-            "id_number": 33133243,
+            "id_number": 33168643,
             "first_name": "Abraham",
             "last_name": "Ogol",
             "address": "Nairobi",
@@ -43,7 +43,7 @@ class BaseTest(unittest.TestCase):
         }
 
         self.user_normal = {
-            "id_number": 33133243,
+            "id_number": 309382243,
             "first_name": "Abraham",
             "last_name": "Ogol",
             "address": "Nairobi",
@@ -78,7 +78,7 @@ class BaseTest(unittest.TestCase):
             headers = None
         else:
             headers = self.get_headers(authtoken=auth)
-        res = self.client.post(path=path, headers=headers, content_type='application/json')
+        res = self.client.get(path=path, headers=headers, content_type='application/json')
         return res
 
     def put(self, path, data, auth):
@@ -89,7 +89,7 @@ class BaseTest(unittest.TestCase):
             headers = None
         else:
             headers = self.get_headers(authtoken=auth)
-        res = self.client.post(path=path, data=dto, headers=headers, content_type='application/json')
+        res = self.client.put(path=path, data=dto, headers=headers, content_type='application/json')
         return res
 
     def delete(self, path, auth):
@@ -99,32 +99,34 @@ class BaseTest(unittest.TestCase):
             headers = None
         else:
             headers = self.get_headers(authtoken=auth)
-        res = self.client.post(path=path, headers=headers, content_type='application/json')
+        res = self.client.delete(path=path, headers=headers, content_type='application/json')
         return res
 
-    def post_user(self, role=""):
+    def post_user(self, role="", path=""):
+        if not path:
+            path = "/api/v1/users"
         if role == "Admin":
-            res = self.post(path="/api/v1/users/32361391", data=self.user_admin, auth=None)
+            res = self.post(path=path, data=self.user_admin, auth=None)
             return res
         elif role == "Normal":
-            res = self.post(path="/api/v1/users/32361391", data=self.user_normal, auth=None)
+            res = self.post(path=path, data=self.user_normal, auth=None)
             return res
         if role == "clinician":
-            res = self.post(path="/api/v1/users/32361391", data=self.user_clinician, auth=None)
+            res = self.post(path=path, data=self.user_clinician, auth=None)
             return res
 
     def admin_login(self):
-        register = self.post_user(role="Admin")
+        register = self.post_user(role="Admin", path="/api/v1/users/32361391")
         login = self.post(path="/api/v1/auth/signin", data=self.user_admin, auth=None)
         return login
 
     def normal_login(self):
-        register = self.post_user(role="Normal")
+        register = self.post_user(role="Normal", path="/api/v1/users/32361391")
         login = self.post(path="/api/v1/auth/signin", data=self.user_normal, auth=None)
         return login
 
     def clinician_login(self):
-        register = self.post_user(role="clinician")
+        register = self.post_user(role="clinician", path="/api/v1/users/32361391")
         login = self.post(path="/api/v1/auth/signin", data=self.user_clinician, auth=None)
         return login
 

@@ -20,7 +20,7 @@ class TestAuth(BaseTest):
 
     def test_user_signup(self):
         """Test that a user can signup using a POST request"""
-        reg = self.post_user(role="Admin")
+        reg = self.post_user(role="Admin", path="/api/v1/users/32361391")
         self.assertEqual(reg.json['message'], 'Successfully added')
         self.assertEqual(reg.status_code, 201)
 
@@ -28,7 +28,7 @@ class TestAuth(BaseTest):
         """Test that a user can login using a POST request"""
         login = self.admin_login()
         self.assertEqual(login.json['message'], "Success")
-        #self.assertEqual(login.status_code, 200)
+        self.assertEqual(login.status_code, 200)
 
     def test_user_logout(self):
         """Test that the user can logout using a POST request"""
