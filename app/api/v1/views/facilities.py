@@ -42,7 +42,7 @@ class Facility(Resource):
     @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
-        if FacilityModel().get_user_by_id(g.user)[4] != 'admin':
+        if FacilityModel().get_user_by_id(g.user)[4] != 'Admin':
             raise Unauthorized("You are not permitted to preform this operation")
 
         req_data = request.data.decode().replace("'", '"')
@@ -81,7 +81,7 @@ class Facility(Resource):
     @api.marshal_with(all_resp, code=200)
     @auth_required
     def get(self):
-        if FacilityModel().get_user_by_id(g.user)[4] != 'admin':
+        if FacilityModel().get_user_by_id(g.user)[4] != 'Admin':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = FacilityModel().get_all()
@@ -102,7 +102,7 @@ class GetSpecificFacility(Resource):
         if FacilityModel().check_exists("facilities", "facility_id", facility_id) == False:
             raise NotFound("No such facility in our database")
 
-        if FacilityModel().get_user_by_id(g.user)[4] != 'admin':
+        if FacilityModel().get_user_by_id(g.user)[4] != 'Admin':
             raise Unauthorized("You are not permitted to preform this operation")
 
         req_data = request.data.decode().replace("'", '"')
@@ -131,7 +131,7 @@ class GetSpecificFacility(Resource):
         if FacilityModel().check_exists("facilities", "facility_id", facility_id) == False:
             raise NotFound("No such facility in our database")
 
-        if FacilityModel().get_user_by_id(g.user)[4] != 'admin':
+        if FacilityModel().get_user_by_id(g.user)[4] != 'Admin':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = FacilityModel().get_single_facility(facility_id)

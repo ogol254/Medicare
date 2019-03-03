@@ -52,6 +52,20 @@ class BaseTest(unittest.TestCase):
             "password": "ogolpass"
         }
 
+        self.incident = {
+            "name": "Marion Okla",
+            "location": "Huruma",
+            "type": "Third party report",
+            "tell": "0790463533",
+            "description": "I know of a child being stigmatized about the pregnacy she is having"
+        }
+
+        self.facility = {
+            "name": "Kenyatta Refferal hospital",
+            "location": "Nairobo",
+            "contact": "0790463533"
+        }
+
         self.error_msg = "The path accessed / resource requested cannot be found, please check"
 
         with self.app.app_context():
@@ -114,6 +128,16 @@ class BaseTest(unittest.TestCase):
         if role == "clinician":
             res = self.post(path=path, data=self.user_clinician, auth=None)
             return res
+
+    def post_incident(self):
+        res = self.post(path="/api/v1/incidents", data=self.incident, auth=None)
+        return res
+
+    def post_facilities(self):
+        login = self.admin_login()
+        token = login.json['AuthToken']
+        res = self.post(path="/api/v1/facilities", data=self.facility, auth=token)
+        return res
 
     def admin_login(self):
         register = self.post_user(role="Admin", path="/api/v1/users/32361391")

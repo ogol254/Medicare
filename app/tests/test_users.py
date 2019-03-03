@@ -15,7 +15,7 @@ from ..db_config import destroy_db, init_db
 from .base_tests import BaseTest
 
 
-class TestAuth(BaseTest):
+class TestUser(BaseTest):
     """This class collects all the test cases for the users"""
 
     def test_resgistering_a_user_admin(self):
