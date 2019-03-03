@@ -51,15 +51,15 @@ class TestAuth(BaseTest):
         self.assertEqual(login.status_code, 400)
 
     def test_an_unregistered_user(self):
-            """Test that an unregistered user cannot log in"""
-            data = {
-                "id_number": 32781319,
-                "password": "badadmnsn"
-            }
-            path = '/api/v1/auth/signin'
-            login = self.post(path="/api/v1/auth/signin", data=data, auth=None)
-            self.assertEqual(login.status_code, 401)
-            self.assertEqual(login.json['message'], "Your details were not found, please sign up")
+        """Test that an unregistered user cannot log in"""
+        data = {
+            "id_number": 32781319,
+            "password": "badadmnsn"
+        }
+        path = '/api/v1/auth/signin'
+        login = self.post(path="/api/v1/auth/signin", data=data, auth=None)
+        self.assertEqual(login.status_code, 401)
+        self.assertEqual(login.json['message'], "Your details were not found, please sign up")
 
     def tearDown(self):
         """This function destroys objests created during the test run"""

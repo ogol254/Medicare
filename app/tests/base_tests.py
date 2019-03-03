@@ -103,7 +103,7 @@ class BaseTest(unittest.TestCase):
         return res
 
     def post_user(self, role=""):
-        if role == "admin":
+        if role == "Admin":
             res = self.post(path="/api/v1/users/32361391", data=self.user_admin, auth=None)
             return res
         elif role == "Normal":
