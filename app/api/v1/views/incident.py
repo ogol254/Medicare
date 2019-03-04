@@ -81,7 +81,7 @@ class Incidents(Resource):
     @api.marshal_with(g_resp, code=200)
     @auth_required
     def get(self):
-        if IncidentModel().get_user_by_id(g.user)[4] == 'normal':
+        if IncidentModel().get_user_by_id(g.user)[4] == 'Normal':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = IncidentModel().get_all()
