@@ -139,6 +139,19 @@ class BaseTest(unittest.TestCase):
         res = self.post(path="/api/v1/facilities", data=self.facility, auth=token)
         return res
 
+    def post_records(self):
+        record = {
+            "incident_id": self.post_incident().json['incident_id'],
+            "id_num": self.user_admin['id_number'],
+            "type": "Third party record",
+            "description": "3 months pregnant",
+            "location": "Huruma",
+            "facility_id": self.post_facilities().json['facility_id']
+        }
+        token = self.admin_login().json['AuthToken']
+        res = self.post(path="/api/v1/records", data=record, auth=token)
+        return res
+
     def admin_login(self):
         register = self.post_user(role="Admin", path="/api/v1/users/32361391")
         login = self.post(path="/api/v1/auth/signin", data=self.user_admin, auth=None)

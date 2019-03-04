@@ -92,8 +92,7 @@ class RecordDTO(object):
         'description': fields.String(required=True, description="description of the record"),
         'location': fields.String(required=True, description="location"),
         'facility_id': fields.Integer(required=True, description="medical facility assigned to this doctor"),
-        'incident_id': fields.Integer(required=True, description="Associated incident number"),
-        'created_by': fields.Integer(required=True, description="clinician or admin name who created this record"),
+        'incident_id': fields.Integer(required=True, description="Associated incident number")
     })
     n_record_resp = api.model('Response for adding a new record', {
         'message': fields.String(required=True, description="success message"),

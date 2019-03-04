@@ -29,9 +29,6 @@ def _validate_record(record):
         # ensure keys have values
         if not value:
             raise BadRequest("{} is lacking. It is a required field".format(key))
-        # elif len(value) < 3:
-            #raise BadRequest("The {} provided is too short".format(key))
-        # validate length
 
 
 @api.route("/")
@@ -64,8 +61,8 @@ class Records(Resource):
             if not RecordModel().get_user_by_id(id_num):
                 raise BadRequest("This user does not exist in our users list, please create account first")
 
-            # if RecordModel().check_exists("facilities", "facility_id", facility_id) == False:
-            #     raise BadRequest("This facility does not exist")
+            if RecordModel().check_exists("facilities", "facility_id", facility_id) == False:
+                raise BadRequest("This facility does not exist")
 
         except (KeyError, IndexError) as e:
             raise BadRequest
@@ -97,7 +94,7 @@ class Records(Resource):
     @api.marshal_with(all_record, code=200)
     @auth_required
     def get(self):
-        if RecordModel().get_user_by_id(g.user)[4] == 'normal':
+        if RecordModel().get_user_by_id(g.user)[4] == 'Normal':
             raise Unauthorized("You are not permitted to preform this operation")
 
         resp = RecordModel().get_all()
