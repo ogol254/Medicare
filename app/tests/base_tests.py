@@ -152,6 +152,14 @@ class BaseTest(unittest.TestCase):
         res = self.post(path="/api/v1/records", data=record, auth=token)
         return res
 
+    def post_comment(self):
+        record = self.post_records()
+        token = self.admin_login().json['AuthToken']
+        path = "/api/v1/records/{}/comment".format(record.json['record_id'])
+        data = {"comment": "Should come back next on monday"}
+        res = self.post(path=path, data=data, auth=token)
+        return res
+
     def admin_login(self):
         register = self.post_user(role="Admin", path="/api/v1/users/32361391")
         login = self.post(path="/api/v1/auth/signin", data=self.user_admin, auth=None)
