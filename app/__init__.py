@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint, request, make_response, jsonify
+from flask_cors import CORS
 from instance.config import app_config
 from werkzeug.contrib.fixers import ProxyFix
 import json
@@ -61,6 +62,7 @@ def create_app(config_name='development'):
     app.url_map.strict_slashes = False
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
+    CORS(app)
 
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
