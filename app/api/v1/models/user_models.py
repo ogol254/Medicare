@@ -37,7 +37,7 @@ class UserModel(BaseModel):
                 tell=int(tell)
             )
             resp.append(users)
-        return data
+        return resp
 
     def save(self):
         """Add user details to the database"""

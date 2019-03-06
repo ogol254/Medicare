@@ -100,7 +100,6 @@ class Users(Resource):
 
         resp = UserModel().get_users()
         users_list = {
-            "message": "Users",
             "users": resp
         }
 
