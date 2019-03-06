@@ -12,7 +12,7 @@ def connection(url):
 def init_db():
     """Set up the database to stode the user data
     """
-    db_url = current_app.config['DATABASE_URL']
+    db_url = os.getenv('DATABASE_URL')
     conn = connection(db_url)
     with conn as conn, conn.cursor() as cursor:
         with current_app.open_resource('sql_tables.sql', mode='r') as sql:
