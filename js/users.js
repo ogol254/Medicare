@@ -9,14 +9,14 @@ $( document ).ready(function() {
         }
     }
     
-    fetch(`https://medicarea.herokuapp.com/api/v1/users`, config)
+    fetch(`https://jsonplaceholder.typicode.com/comments`, config)
         .then((response) => {
             response.json().then(data => {
-                const users = Object.values(data.message)
+                const users = Object.values(data)
                 console.log(users)
-                // users.forEach((single) => {
-                //     console.log(single.id_number)
-                // })
+                users.forEach((single) => {
+                    console.log(single.email)
+                })
             })
         })
         
