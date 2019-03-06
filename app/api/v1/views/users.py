@@ -91,7 +91,7 @@ class Users(Resource):
     docu_string = "This endpoint allows to get list of all users."
 
     @api.doc(docu_string)
-    @api.marshal_with(users_resp, code=200)
+    # @api.marshal_with(users_resp, code=200)
     @auth_required
     def get(self):
         role = UserModel().get_user_by_id(g.user)[4]
