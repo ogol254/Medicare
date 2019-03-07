@@ -1,69 +1,90 @@
-const table  = document.querySelector('tbody');
+const table  = document.querySelector('table');
+const form  = document.querySelector('form');
+const showalert = document.getElementById('alertarea');
+
+const header = {
+    "Content-type" : "application/json",
+    "Authorization" : `Bearer ${token}`
+}
+
 $( document ).ready(function() {
 
     const config = {
         method: 'GET',
-        headers: {
-            "Content-type" : "application/json",
-            "Authorization" : `Bearer ${token}`
-        }
+        headers: header
     }
     
-    fetch(`https://jsonplaceholder.typicode.com/comments`, config)
+    fetch(`https://medicarea.herokuapp.com/api/v1/users`, config)
         .then((response) => {
             response.json().then(data => {
-                const users = Object.values(data)
-                console.log(users)
+                const users = Object.values(data.users)
+                // console.log(users)
+                let html = `
+                <thead>
+                <tr>
+                    <th>ID Number</th>
+                    <th>First Name </th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Tell</th>
+                </tr>
+                </thead>
+                <tbody>`
                 users.forEach((single) => {
-                    console.log(single.email)
+                html += ` 
+                <tr>
+                    <td>${single.id_number}</td>
+                    <td>${single.first_name}</td>
+                    <td>${single.last_name}</td>
+                    <td>${single.address}</td>
+                    <td>${single.tell}</td>
+                </tr> 
+                 `
                 })
+                html += `</tbody> `
+                table.innerHTML = html
             })
         })
         
-    
-
-    // function showusers (data) {
-    //     const options  = data.map(item => 
-    //         `
-    //         <tr>
-    //                 <td>${item}</td>
-    //                 <td>Customer Support</td>
-    //                 <td>New York</td>
-    //                 <td>27</td>
-    //                 <td>2011/01/25</td>
-    //                 <td>$112,000</td>
-    //             </tr>  
-    //         `
-    //         );
-    //     // table.innerHTML = options;
-    //     console.log(item['id_number']);
-    // }
-
-    // function showusers (data) {
-    //     for (var i=0; i<data.length; i += 1 ) {
-    //         // var user = JSON.parse(data); 
-    //         const statusHtml = `
-    //             <tr>
-    //                 <td>${data.length}</td>
-    //                 <td>Customer Support</td>
-    //                 <td>New York</td>
-    //                 <td>27</td>
-    //                 <td>2011/01/25</td>
-    //                 <td>$112,000</td>
-    //             </tr> 
-            
-    //         `
-    //         table.innerHTML = statusHtml
-
-    //         // if (rooms[i].available === true) {
-    //         //     statusHtml += '<li class="empty">';
-    //         // }
-    //         // else if (rooms[i].available === false) {
-    //         //     statusHtml += '<li class="full">';
-    //         // }
-    //         // statusHtml += rooms[i].room;
-    //         // statusHtml += '</li>';
-    //     }
-    // }
-
 });
+
+form.addEventListener('submit', PostUser);
+
+function PostUser(e){
+    e.preventDefault();
+    
+    const id_number = document.getElementById('val-id-num').value;
+    const last_name = document.getElementById('val-lname').value;
+    const first_name = document.getElementById('val-fname').value;
+    const password = document.getElementById('val-password').value;
+    const tell = document.getElementById('val-phoneus').value;
+    const role = document.getElementById('val-role').value;
+    const address = document.getElementById('val-address').value;
+
+    const configpost = {
+        method: 'POST',
+        headers: header,
+        body: JSON.stringify({
+            "id_number": parseInt(id_number),
+            "first_name": first_name,
+            "last_name": last_name,
+            "address": address,
+            "tell": tell,
+            "role": role,
+            "password": password
+        })
+    }
+
+    fetch(`https://medicarea.herokuapp.com/api/v1/users`, configpost)
+        .then(response => response.json())
+        .then(data => successalert(data.message))
+}
+
+function successalert(response) {
+    const alert = `
+    <div class="alert alert-primary alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Holy guacamole!</strong> ${response}.
+    </div>`
+    showalert.innerHTML = alert  
+}

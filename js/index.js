@@ -1,8 +1,11 @@
 $( document ).ready(function() {
-    $('#header-area').load('headers.html');
     $('#sidebar').load('sidebar.html');
-
+    $('#header-area').load('headers.html');
+    
 });
+
+
+
 
 const token = localStorage.getItem("AuthToken");
 if (token === null){
