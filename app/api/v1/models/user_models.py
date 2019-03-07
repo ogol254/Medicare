@@ -44,7 +44,7 @@ class UserModel(BaseModel):
         curr = dbconn.cursor()
         query = """SELECT id_num, first_name, last_name, address, tell, role FROM users WHERE id_num=%s """
         curr.execute(query, [id_num])
-        data = curr.fetchall()
+        data = curr.fetchone()
         resp = []
         curr.close()
 
