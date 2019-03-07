@@ -58,7 +58,7 @@ class Users(Resource):
             if UserModel().get_user_by_id(g.user)[4] == 'Admin':
                 role = body['role'].strip().strip()
             else:
-                role = "normal"
+                role = "Normal"
 
         except (KeyError, IndexError) as e:
             raise BadRequest
@@ -106,6 +106,51 @@ class Users(Resource):
         return users_list, 200
 
 
+@api.route("/<int:id_num>")
+class UserSpecific(object):
+    """docstring for ClassName"""
+    @auth_required
+    def get(self, id_num):
+        if UserModel().check_exists("users", "id_num", id_num) == False:
+            raise NotFound("No such user in our record")
+
+        if UserModel().get_user_by_id(g.user)[3] == id_num or UserModel().get_user_by_id(g.user)[4] == "Admin":
+            resp = UserModel().get_specific_user(id_num)
+            users = {
+                "user": resp
+            }
+            return users, 200
+
+        raise Unauthorized("You are not permitted to preform this operation")
+
+    @auth_required
+    def put(self, id_num):
+        if UserModel().check_exists("users", "id_num", id_num) == False:
+            raise NotFound("No such user in our record")
+
+        if UserModel().get_user_by_id(g.user)[3] == id_num or UserModel().get_user_by_id(g.user)[4] == "Admin":
+            req_data = request.data.decode().replace("'", '"')
+            if not req_data:
+                raise BadRequest("Provide data in the request")
+            body = json.loads(req_data)
+
+            for field, value in body.items():
+                _table_name = "users"
+                UserModel().update_item(table=_table_name,
+                                        field=field,
+                                        data=value,
+                                        item_field="id_num",
+                                        item_id=int(id_num))
+
+                resp = {
+                    "message": "{} updated to {}".format(field, value)
+                }
+
+            return resp, 200
+
+        raise Unauthorized("You are not permitted to preform this operation")
+
+
 @api.route("/incidents")
 class UserIncidents(Resource):
 
@@ -121,7 +166,6 @@ class UserIncidents(Resource):
         if not resp:
             resp = "No existing incidents assigned to you"
         user_incidents = {
-            "user": UserModel().get_name(id_mumber),
             "incidents": resp
         }
 
@@ -140,17 +184,10 @@ class UserRecords(Resource):
         if not resp:
             resp = "--empty--"
         user_records = {
-            "user": UserModel().get_name(id_mumber),
             "Records": resp
         }
 
         return user_records, 200
-
-
-@api.route("/<int:id_num>")
-class UserBio(Resource):
-    def get(self, id_num):
-        pass
 
 
 @api.route("/32361391")

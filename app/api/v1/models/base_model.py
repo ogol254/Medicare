@@ -37,17 +37,6 @@ class BaseModel(object):
         if updated:
             return True
 
-    def delete_item(self, table_name, field, field_value):
-        """delete the field of an item given the item_id"""
-
-        dbconn = self.db
-        curr = dbconn.cursor()
-        query = "DELETE FROM {} WHERE {}={};".format(table_name, field, field_value)
-        updated = curr.execute(query)
-        dbconn.commit()
-        if updated:
-            return True
-
     def get_user_by_id(self, id_num):
         """return user from the db given a username"""
         database = self.db
@@ -58,17 +47,6 @@ class BaseModel(object):
         data = curr.fetchone()
         curr.close()
         return data
-
-    def check_item_exists(self, table, field, data):
-        """Check if the records exist"""
-        curr = self.db.cursor()
-        query = "SELECT * FROM {} WHERE {}={};".format(table, field, data)
-        curr.execute(query)
-        data = curr.fetchone()
-        if data:
-            return True
-        else:
-            return False
 
     @staticmethod
     def encode_auth_token(id_num):

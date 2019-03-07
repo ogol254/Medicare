@@ -34,9 +34,30 @@ class UserModel(BaseModel):
                 first_name=first_name,
                 last_name=last_name,
                 address=address,
-                tell=int(tell)
+                tell=tell
             )
             resp.append(users)
+        return resp
+
+    def get_specific_user(self, id_num):
+        dbconn = init_db()
+        curr = dbconn.cursor()
+        query = """SELECT id_num, first_name, last_name, address, tell, role FROM users WHERE id_num=%s """
+        curr.execute(query, [id_num])
+        data = curr.fetchall()
+        resp = []
+        curr.close()
+
+        id_num, first_name, last_name, address, tell, role = data
+        users = dict(
+            id_number=int(id_num),
+            first_name=first_name,
+            last_name=last_name,
+            address=address,
+            tell=tell,
+            role=role
+        )
+        resp.append(users)
         return resp
 
     def save(self):
