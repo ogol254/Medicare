@@ -107,7 +107,7 @@ class Users(Resource):
 
 
 @api.route("/<int:id_num>")
-class UserSpecific(object):
+class UserSpecific(Resource):
     """docstring for ClassName"""
     @auth_required
     def get(self, id_num):
