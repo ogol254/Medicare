@@ -67,7 +67,7 @@ class IncidentModel(BaseModel):
                 type=type,
                 description=description,
                 location=location,
-                tell=int(tell),
+                tell=tell,
                 comment=comment,
                 assigned_to=assigned_to,
                 created_on=created_on.strftime("%B %d, %Y")
@@ -168,7 +168,7 @@ class UserIncidentsModel(BaseModel):
                 description=description,
                 location=location,
                 status=status,
-                tell=int(tell),
+                tell=tell,
                 comment=comment,
                 created_on=created_on.strftime("%B %d, %Y")
             )
