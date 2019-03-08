@@ -149,7 +149,7 @@ class UserIncidentsModel(BaseModel):
     def get_all_incident_assigned_to(self):
         dbconn = init_db()
         curr = dbconn.cursor()
-        query = """SELECT incident_id, type, description, tell, 
+        query = """SELECT incident_id, created_by, type, description, location, status, tell, 
             comment, created_on FROM incidents WHERE assigned_to=%s;"""
         curr.execute(query, [self.id])
         data = curr.fetchall()
