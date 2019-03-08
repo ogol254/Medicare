@@ -158,9 +158,7 @@ class UserIncidentsModel(BaseModel):
 
         for i, items in enumerate(data):
             incident_id, created_by, type, description, location, status, tell, comment, created_on = items
-            if assigned_to != None:
-                _n = BaseModel().get_user_by_id(assigned_to)
-                assigned_to = _n[0] + ' ' + _n[1]
+            
             incidents = dict(
                 incident_id=int(incident_id),
                 reported_by=created_by,
