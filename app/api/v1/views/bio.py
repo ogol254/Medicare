@@ -68,7 +68,7 @@ class UserBio(Resource):
     docu_string = "This endpoint allows to get list of all users."
 
     @api.doc(docu_string)
-    @api.marshal_with(users_resp, code=200)
+    #@api.marshal_with(users_resp, code=200)
     @auth_required
     def get(self, id_number):
         resp = UserBioModel().get_user_bio(id_number)
