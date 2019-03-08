@@ -44,6 +44,17 @@ var form_validation = function() {
                     "val-id-num": {
                         required: !0,
                         digits: !0
+                    },
+                    "val-name": {
+                        required: !0,
+                        minlength: 5
+                    },
+                    "val-description":{
+                        required: !0,
+                        minlength: 30
+                    },
+                    "val-type": {
+                        required: !0
                     }
                 },
                 messages: {
@@ -66,8 +77,17 @@ var form_validation = function() {
                     },
                     "val-addres": "What do you stay?",
                     "val-role": "Whats his role!",
+                    "val-type": "Choose a type below!",
                     "val-phoneus": "Please enter a KE phone!",
-                    "val-id-num": "Please enter only digits!"
+                    "val-id-num": "Please enter only digits!",
+                    "val-name": {
+                        required: "Please enter your full name",
+                        minlength: "Your name must consist of at least 5 characters"
+                    },
+                    "val-description": {
+                        required: "Add some description",
+                        minlength: "Description must consist of at least 30 characters"
+                    }
                 }
             })
         }

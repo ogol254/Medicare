@@ -2,38 +2,47 @@ const table  = document.querySelector('table');
 const form  = document.querySelector('form');
 const showalert = document.getElementById('alertarea');
 
+const header = {
+    "Content-type" : "application/json",
+    "Authorization" : `Bearer ${token}`
+}
+const uri = "https://medicarea.herokuapp.com/api/v1/incidents";
+
 $( document ).ready(function() {
 
+    const config = {
+        method: 'GET',
+        headers: header
+    }
     
-    
-    fetch(`https://medicarea.herokuapp.com/api/v1/users`, getconfig)
+    fetch(uri, config)
         .then((response) => {
             response.json().then(data => {
-                const users = Object.values(data.users)
+                const users = Object.values(data.incidents)
                 // console.log(users)
                 let html = `
                 <thead>
                 <tr>
-                    <th>ID Number</th>
-                    <th>First Name </th>
-                    <th>Last Name</th>
-                    <th>Address</th>
+                    <th>Incident #</th>
+                    <th>Reporter </th>
                     <th>Tell</th>
+                    <th>Address</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
-                </thead>
+                </thead> 
                 <tbody>`
                 users.forEach((single) => {
                 html += ` 
                 <tr>
-                    <td>${single.id_number}</td>
-                    <td>${single.first_name}</td>
-                    <td>${single.last_name}</td>
-                    <td>${single.address}</td>
+                    <td>${single.incident_id}</td>
+                    <td>${single.reported_by}</td>
                     <td>${single.tell}</td>
+                    <td>${single.location}</td>
+                    <td>${single.status}</td>
                     <td>
-                        <a href="/profile.html?=${single.id_number}"><i class="fa fa-edit"></i> </a>
-                        <a href="/profile.html?=${single.id_number}"><i class="fa fa-snowflake-o"></i> </a>
+                        <a href="/view/${single.incident_id}"><i class="fa fa-edit"></i> </a>
+                        <a href="/view/${single.incident_id}"><i class="fa fa-snowflake-o"></i> </a>
                     </td>
                 </tr> 
                  `
@@ -45,34 +54,30 @@ $( document ).ready(function() {
         
 });
 
-form.addEventListener('submit', PostUser);
+form.addEventListener('submit', Addincident);
 
-function PostUser(e){
+function Addincident(e){
     e.preventDefault();
     
-    const id_number = document.getElementById('val-id-num').value;
-    const last_name = document.getElementById('val-lname').value;
-    const first_name = document.getElementById('val-fname').value;
-    const password = document.getElementById('val-password').value;
+    const name = document.getElementById('val-name').value;
+    const description = document.getElementById('val-description').value;
     const tell = document.getElementById('val-phoneus').value;
-    const role = document.getElementById('val-role').value;
-    const address = document.getElementById('val-address').value;
+    const type = document.getElementById('val-type').value;
+    const location = document.getElementById('val-address').value;
 
     const configpost = {
         method: 'POST',
         headers: header,
         body: JSON.stringify({
-            "id_number": parseInt(id_number),
-            "first_name": first_name,
-            "last_name": last_name,
-            "address": address,
+            "name": name,
+            "location": location,
             "tell": tell,
-            "role": role,
-            "password": password
+            "type": type,
+            "description": description
         })
     }
 
-    fetch(`https://medicarea.herokuapp.com/api/v1/users`, configpost)
+    fetch(uri, configpost)
         .then(response => response.json())
         .then(data => successalert(data.message))
 }

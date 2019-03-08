@@ -6,17 +6,24 @@ $( document ).ready(function() {
 
 
 
-
 const token = localStorage.getItem("AuthToken");
+
+const header = {
+    "Content-type" : "application/json",
+    "Authorization" : `Bearer ${token}`
+}
+
+const getconfig = {
+        method: 'GET',
+        headers: header
+    }
+
 if (token === null){
     redirect: window.location.replace("index.html") 
 }else{
     const config = {
         method: 'POST',
-        headers: {
-            "Content-type" : "application/json",
-            "Authorization" : `Bearer ${token}`
-        }
+        headers: header
     }
     
     fetch(`https://medicarea.herokuapp.com/api/v1/auth/validate`, config)
@@ -30,4 +37,7 @@ if (token === null){
     
         })
 }
+
+
+
 

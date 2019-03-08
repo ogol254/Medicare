@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Medicare - Maternal health monitor</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/helper.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+ 
+var queryString = decodeURIComponent(window.location.search).substring(2);
+// console.log(queryString)
+ 
+</script>
+
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <div id="header-area"></div>
+        <div id='sidebar'></div>
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Dashboard</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-6">    
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">ID number: <div id="idno"></div></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">Adress: <div id="address"></div></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">Phone: <div id="tell"></div></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">Email: <div id="email"></div></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">Blood group: <div id="b_group"></div></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">Weight: <div id="weight"></div></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">Height: <div id="height"></div></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">Age: <div id="age"></div></div>
+                            </div>
+                        </div>
+                    </div> 
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-two">
+                                    <header>
+                                        <div class="avatar">
+                                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Allison Walker" />
+                                        </div>
+                                    </header>
+
+                                    <h3>Abraham Ogol</h3>
+                                    <div class="desc">
+                                        Lorem ipsum dolor sit amet, consectetur.
+                                    </div>
+                                    <div class="contacts">
+                                        <a href=""><i class="fa fa-plus"></i></a>
+                                        <a href=""><i class="fa fa-whatsapp"></i></a>
+                                        <a href=""><i class="fa fa-envelope"></i></a>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+
+                
+
+                <div class="row">
+                    
+                <div class="col-lg-12">
+                        <div class="card">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#incidents" role="tab">Incidents</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#records" role="tab">Records</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="incidents" role="tabpanel">
+                                    <div class="card-body">
+                                        
+                                    </div>
+                                </div>
+                                <!--second tab-->
+                                <div class="tab-pane" id="records" role="tabpanel">
+                                    <div class="card-body">
+                                        
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="settings" role="tabpanel">
+                                    <div class="card-body">
+                                        <form class="form-horizontal form-material">
+                                            <div class="form-group">
+                                                <label class="col-md-12"> Date of birth</label>
+                                                <div class="col-md-12">
+                                                    <input type="date" placeholder="John Doe" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-email" class="col-md-12">Email</label>
+                                                <div class="col-md-12">
+                                                    <input type="email" placeholder="Zebra Theme@gmail.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Blood group</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" value="password" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Weight</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Height</label>
+                                                <div class="col-md-12">
+                                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Select Country</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line">
+                                                                                    <option>London</option>
+                                                                                    <option>India</option>
+                                                                                    <option>Usa</option>
+                                                                                    <option>Canada</option>
+                                                                                    <option>Thailand</option>
+                                                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End PAge Content -->
+               <!-- <table> -->
+                
+                    
+
+               <!-- </table>  -->
+
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2019 Medicare <a href="https://kenya-tech.com">Abraham Ogol</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/profile.js"></script>
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>
