@@ -78,8 +78,7 @@ class UserBio(Resource):
             }
             return res, 404
         users_list = {
-            "message": "{}'s bio".format(resp['name']),
-            "Bio_data": resp
+            "data": [resp]
         }
 
         return users_list, 200
