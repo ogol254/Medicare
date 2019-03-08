@@ -166,7 +166,7 @@ class UserIncidentsModel(BaseModel):
                 description=description,
                 location=location,
                 status=status,
-                tell=tell,
+                tell=int(tell),
                 comment=comment,
                 created_on=created_on.strftime("%B %d, %Y")
             )
