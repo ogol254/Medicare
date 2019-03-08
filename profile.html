@@ -18,18 +18,15 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/lib/jquery/jquery.min.js"></script>
     <script src="js/index.js"></script>
+    <script>var queryString = decodeURIComponent(window.location.search).substring(2);</script>
+    <script src="js/profile.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script>
- 
-var queryString = decodeURIComponent(window.location.search).substring(2);
-// console.log(queryString)
- 
-</script>
+
 
 </head>
 
@@ -64,34 +61,34 @@ var queryString = decodeURIComponent(window.location.search).substring(2);
                     <div class="col-lg-6">    
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card">ID number: <div id="idno"></div></div>
+                                <div class="card"><div id="idno"></div></div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="card">Adress: <div id="address"></div></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card">Phone: <div id="tell"></div></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">Email: <div id="email"></div></div>
+                                <div class="card"><div id="address"></div></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card">Blood group: <div id="b_group"></div></div>
+                                <div class="card"><div id="tell"></div></div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="card">Weight: <div id="weight"></div></div>
+                                <div class="card"><div id="email"></div></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card">Height: <div id="height"></div></div>
+                                <div class="card"><div id="b_group"></div></div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="card">Age: <div id="age"></div></div>
+                                <div class="card"><div id="weight"></div></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card"><div id="height"></div></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card"><div id="age"></div></div>
                             </div>
                         </div>
                     </div> 
@@ -103,11 +100,11 @@ var queryString = decodeURIComponent(window.location.search).substring(2);
                                 <div class="card-two">
                                     <header>
                                         <div class="avatar">
-                                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Allison Walker" />
+                                            <!-- image -->
                                         </div>
                                     </header>
 
-                                    <h3>Abraham Ogol</h3>
+                                    <h3><div id="name"></div></h3>
                                     <div class="desc">
                                         Lorem ipsum dolor sit amet, consectetur.
                                     </div>
@@ -139,7 +136,7 @@ var queryString = decodeURIComponent(window.location.search).substring(2);
                             <div class="tab-content">
                                 <div class="tab-pane active" id="incidents" role="tabpanel">
                                     <div class="card-body">
-                                        
+                                        <div id="incidents-data"></div>
                                     </div>
                                 </div>
                                 <!--second tab-->
@@ -223,7 +220,7 @@ var queryString = decodeURIComponent(window.location.search).substring(2);
     </div>
     <!-- End Wrapper -->
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="js/profile.js"></script>
+    
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->

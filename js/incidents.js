@@ -2,20 +2,12 @@ const table  = document.querySelector('table');
 const form  = document.querySelector('form');
 const showalert = document.getElementById('alertarea');
 
-const header = {
-    "Content-type" : "application/json",
-    "Authorization" : `Bearer ${token}`
-}
-const uri = "https://medicarea.herokuapp.com/api/v1/incidents";
+// const uri = "";
 
 $( document ).ready(function() {
 
-    const config = {
-        method: 'GET',
-        headers: header
-    }
     
-    fetch(uri, config)
+    fetch(`https://medicarea.herokuapp.com/api/v1/incidents`, getconfig)
         .then((response) => {
             response.json().then(data => {
                 const users = Object.values(data.incidents)
@@ -77,7 +69,7 @@ function Addincident(e){
         })
     }
 
-    fetch(uri, configpost)
+    fetch(`https://medicarea.herokuapp.com/api/v1/incidents`, configpost)
         .then(response => response.json())
         .then(data => successalert(data.message))
 }
