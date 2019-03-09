@@ -27,7 +27,7 @@ if (token === null){
         .then(data => {
             if (data.message === 'Valid'){
                 $('#welcome').text(data.name)
-                $('#profile-link').html(`<a href="/profile.html?=<${data.id_num}"><i class="ti-user"></i> Profile</a>`)
+                $('#profile-link').html(`<a href="/profile.html?id=${data.id_num}"><i class="ti-user"></i> Profile</a>`)
             }else{
                 redirect: window.location.replace("index.html") 
             }

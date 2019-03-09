@@ -32,8 +32,8 @@ $( document ).ready(function() {
                     <td>${single.address}</td>
                     <td>${single.tell}</td>
                     <td>
-                        <a href="/profile.html?=${single.id_number}"><i class="fa fa-edit"></i> </a>
-                        <a href="/profile.html?=${single.id_number}"><i class="fa fa-snowflake-o"></i> </a>
+                        <a href="/profile.html?id=${single.id_number}"><i class="fa fa-edit"></i> </a>
+                        <a href="/profile.html?id=${single.id_number}"><i class="fa fa-snowflake-o"></i> </a>
                     </td>
                 </tr> 
                  `
