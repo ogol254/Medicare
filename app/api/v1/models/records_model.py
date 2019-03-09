@@ -107,7 +107,7 @@ class UserRecordsModel(BaseModel):
         self.number = id_number
         self.db = init_db()
 
-    def get_all_records_assigned_to(self):
+    def get_all_user_records(self):
         dbconn = init_db()
         curr = dbconn.cursor()
         query = """SELECT record_id, created_by, type, description,location, facility_id,

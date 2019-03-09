@@ -151,17 +151,16 @@ class UserSpecific(Resource):
         raise Unauthorized("You are not permitted to preform this operation")
 
 
-@api.route("/incidents")
+@api.route("/incidents/<int:id_num>")
 class UserIncidents(Resource):
 
     @auth_required
-    def get(self):
+    def get(self, id_num):
         role = UserModel().get_user_by_id(g.user)[4]
         if role == 'Normal':
             raise Unauthorized("You are not permitted to preform this operation")
 
-        id_mumber = UserModel().get_user_by_id(g.user)[3]
-        usr = UserIncidentsModel(id_mumber)
+        usr = UserIncidentsModel(id_num)
         resp = usr.get_all_incident_assigned_to()
         if not resp:
             resp = "No existing incidents assigned to you"
@@ -172,17 +171,16 @@ class UserIncidents(Resource):
         return user_incidents, 200
 
 
-@api.route("/records")
+@api.route("/records/<int:id_num>")
 class UserRecords(Resource):
 
     @auth_required
-    def get(self):
+    def get(self, id_num):
 
-        id_mumber = UserModel().get_user_by_id(g.user)[3]
-        usr = UserRecordsModel(id_mumber)
-        resp = usr.get_all_records_assigned_to()
+        usr = UserRecordsModel(id_num)
+        resp = usr.get_all_user_records()
         if not resp:
-            resp = "--empty--"
+            resp = "You dont have any record"
         user_records = {
             "Records": resp
         }
