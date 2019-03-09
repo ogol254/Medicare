@@ -104,7 +104,7 @@ class AuthValidate(Resource):
     docu_string = "This endpoint validates a token"
 
     @api.doc(docu_string)
-    @api.marshal_with(_validate_user_resp, code=200)
+#     @api.marshal_with(_validate_user_resp, code=200)
     @auth_required
     def post(self):
         """This endpoint validates a token"""
@@ -113,7 +113,7 @@ class AuthValidate(Resource):
         name = user[0]
         resp = {
             "message": "Valid",
-            "id num": "{}".format(id_num),
+            "id_num": id_num,
             "name": name
         }
         return resp, 200
