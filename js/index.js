@@ -27,12 +27,30 @@ if (token === null){
         .then(data => {
             if (data.message === 'Valid'){
                 $('#welcome').text(data.name)
+                $('#profile-link').html(`<a href="/profile.html?=<${data.id_num}"><i class="ti-user"></i> Profile</a>`)
             }else{
                 redirect: window.location.replace("index.html") 
             }
     
         })
 }
+
+function logout() {
+        const config = {
+            method: 'POST',
+            headers: header
+        }
+
+        fetch(`https://medicarea.herokuapp.com/api/v1/auth/signout`, config)
+        .then(checkstatus)
+        .then(response => {
+            if (response.status === 200){
+                localStorage.removeItem("AuthToken")
+                redirect: window.location.replace("index.html")
+            }
+        })
+}
+
 
 
 function fetchData (url) {

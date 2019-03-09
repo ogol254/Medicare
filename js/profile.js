@@ -5,12 +5,14 @@ const uri2 = `https://medicarea.herokuapp.com/api/v1/users/${queryString}/bio`;
 fetchData(uri)
 	// .then(checkvalidity(uri))
 	// .then(res => res.json())
-	.then(dataq => {		
+	.then(dataq => {
+		// console.log(dataq)		
 		const data = Object.values(dataq.user)
 		$('#idno').html("ID Number:"+' '+data[0].id_number)
 		$('#tell').html("Phone:"+' '+data[0].tell)
 		$('#address').html("Address:"+' '+data[0].address)
 		$('#name').html(data[0].first_name + ' '+ data[0].last_name)
+		$('.desc').html(data[0].role)
 		// console.log(data[0])
 	})
 
@@ -32,30 +34,33 @@ fetchData(uri2 )
 		$('#email').html("Email:"+' '+d.email)
 		$('#b_group').html("Blood Group:"+' '+d.blood_group)
 
+		const html = 
+		`<a href=""><i class="fa fa-edit"></i></a>
+        <a href="${d.secondary_tell}"><i class="fa fa-whatsapp"></i></a>
+        <a href="${d.email}"><i class="fa fa-envelope"></i></a>
+		`
+		$('.contacts').html(html)
+
 	})
 
 // FETCHING Incidents
 
-fetchData(`https://medicarea.herokuapp.com/api/v1/users/incidents`)
+fetchData(`https://medicarea.herokuapp.com/api/v1/users/incidents/${queryString}`)
 	.then(data => {
 		if (data.incidents === "No existing incidents assigned to you"){
-			emptyrecord(data.incidents)
+			emptyincident(data.incidents)
 		}else{
-			console.log(data.incidents)
+			// console.log(data.incidents)
 			var dat = data.incidents
 			let html = `
 				<div class="table-responsive m-t-40">
-	                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-	                   
-	                </table>
-                </div>
+	                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%"> 
                 <thead>
                 <tr>
                     <th>Incident #</th>
                     <th>Reporter </th>
                     <th>Tell</th>
                     <th>Address</th>
-
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -76,21 +81,123 @@ fetchData(`https://medicarea.herokuapp.com/api/v1/users/incidents`)
                 </tr> 
                  `
                 })
-                html += `</tbody> `
+                html += `</tbody> </table>
+                </div> `
                 $('#incidents-data').html(html);
 
 		}
 	})
 
+fetchData(`https://medicarea.herokuapp.com/api/v1/users/records/${queryString}`)
+	.then(data => {
+		if (data.Records === "You dont have any record"){
+			emptyrecord(data.Records)
+		}else{
+			console.log(data.Records)
 
-function emptyrecord(response) {
+		}
+	})
+
+
+function emptyincident(response) {
 	const html = ` <div class="card well">${response}</div>`
 	$('#incidents-data').html(html);
+}
+function emptyrecord(response) {
+	const html = ` <div class="card well">${response}</div>`
+	$('#records-data').html(html);
 }
 
 function imagehelper(data) {
     const htmll = `<img src='${data}' alt>`;
     $('.avatar').html(htmll)
+}
+
+// ---------------------------------------------
+// BIO REQUESTS
+// ---------------------------------------------
+
+function userbiodata(config_d) {
+	return fetch(uri2, config_d)
+		.then(checkstatus)
+        .then(res => res.json())
+        .catch(err => console.log('Looks there was a proble', err))
+}
+
+
+function postDOB(val) {
+	// e.preventDefault();
+
+	const config_post = {
+		method: 'POST',
+		headers: header,
+		body: JSON.stringify({
+			"date_of_birth" : val
+		   })
+		}
+		
+	userbiodata(config_post)
+		.then(data => successalert(data.message))
+}
+
+// Email
+function UpdateEmail(val) {
+	// e.preventDefault();
+	const config_update = {
+		method: 'PUT',
+		headers: header,
+		body: JSON.stringify({"email": val})
+		}
+		
+	userbiodata(config_update)
+		.then(data => successalert(data.message))
+}
+
+// blood group
+function UpdateBlood(val) {
+	// e.preventDefault();
+	const config_update = {
+		method: 'PUT',
+		headers: header,
+		body: JSON.stringify({"blood_group": val})
+		}
+		
+	userbiodata(config_update)
+		.then(data => successalert(data.message))
+}
+
+// Height
+function Updateheight(val) {
+	// e.preventDefault();
+	const config_update = {
+		method: 'PUT',
+		headers: header,
+		body: JSON.stringify({"height": val})
+		}
+		
+	userbiodata(config_update)
+		.then(data => successalert(data.message))
+}
+
+function Updateweight(val) {
+	// e.preventDefault();
+	const config_update = {
+		method: 'PUT',
+		headers: header,
+		body: JSON.stringify({"weight": val})
+		}
+		
+	userbiodata(config_update)
+		.then(data => successalert(data.message))
+}
+
+function successalert(response) {
+    const alert = `
+    <div class="alert alert-primary alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Holy guacamole!</strong> ${response}.
+    </div>`
+    $('#success').html(alert)  
 }
 
 
