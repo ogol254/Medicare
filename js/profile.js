@@ -121,7 +121,7 @@ function userbiodata(config_d) {
 	return fetch(uri2, config_d)
 		.then(checkstatus)
         .then(res => res.json())
-        .catch(err => console.log('Looks there was a proble', err))
+        .catch(err => dangeralert('Looks there was a problem', err))
 }
 
 
@@ -191,14 +191,6 @@ function Updateweight(val) {
 		.then(data => successalert(data.message))
 }
 
-function successalert(response) {
-    const alert = `
-    <div class="alert alert-primary alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Holy guacamole!</strong> ${response}.
-    </div>`
-    $('#success').html(alert)  
-}
 
 
 

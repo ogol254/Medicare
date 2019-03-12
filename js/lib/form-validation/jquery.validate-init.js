@@ -53,8 +53,20 @@ var form_validation = function() {
                         required: !0,
                         minlength: 30
                     },
+                    "val-comment":{
+                        required: !0,
+                        minlength: 15
+                    },
                     "val-type": {
                         required: !0
+                    },
+                    "val-status": {
+                        required: !0,
+                        minlength: 5
+                    },
+                    "assign_to": {
+                        required: !0,
+                        minlength: 5
                     }
                 },
                 messages: {
@@ -87,6 +99,10 @@ var form_validation = function() {
                     "val-description": {
                         required: "Add some description",
                         minlength: "Description must consist of at least 30 characters"
+                    },
+                    "val-comment": {
+                        required: "Add some comment",
+                        minlength: "Description must consist of at least 10 characters"
                     }
                 }
             })

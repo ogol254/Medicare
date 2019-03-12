@@ -33,8 +33,7 @@ $( document ).ready(function() {
                     <td>${single.location}</td>
                     <td>${single.status}</td>
                     <td>
-                        <a href="/view/${single.incident_id}"><i class="fa fa-edit"></i> </a>
-                        <a href="/view/${single.incident_id}"><i class="fa fa-snowflake-o"></i> </a>
+                        <a href="view-incident.html?incident_id=${single.incident_id}"><i class="fa fa-edit"></i> </a>
                     </td>
                 </tr> 
                  `
@@ -82,3 +81,12 @@ function successalert(response) {
     </div>`
     showalert.innerHTML = alert  
 }
+
+// -------------------------------------------------
+// Viewing specific incidents
+// -------------------------------------------------
+
+// console.log(incident_id)
+
+
+

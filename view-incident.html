@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Medicare - Maternal health monitor</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/helper.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>const incident_id = decodeURIComponent(window.location.search).substring(13);</script>
+    <script src="js/incidents-view.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <div id="header-area"></div>
+        <div id='sidebar'></div>
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">VIEW INCIDENT</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style=""> 
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-6 b-r"><strong>Full Name</strong>
+                                        <br>
+                                        <p id="name" class="text-muted"> </p>
+                                    </div>
+                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                        <br>
+                                        <p id="phone" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Date Created</strong>
+                                        <br>
+                                        <p id="date" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                        <br>
+                                        <p id="location" class="text-muted"></p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6 b-r"> <strong>Assigned to</strong>
+                                        <br>
+                                        <p id="assign" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6 b-r"> <strong>Status</strong>
+                                        <br>
+                                        <p id="status"  class="text-muted"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6 b-r"> <strong>Type</strong>
+                                        <br>
+                                        <p id="type" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6 b-r"> <strong>Description</strong>
+                                        <br>
+                                        <p id="description" class="text-muted"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="card">
+                                    <h3>Comment</h3>
+                                    <div>
+                                        <p id="comment" ></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h3>More Action</h3>
+                                    <div id="show-alert"></div>
+                                    <form class="form-valide" action="#" method="post">
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label" for="assign_to">Assign <span class="text-danger">*</span></label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control" onblur="UpdateAssign(this.value)" id="assign_to" name="val-type">
+                                                    <!-- <option value="">Select one</option>
+                                                    <option value="Self Report">Self Report</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label" for="val-status">Status <span class="text-danger">*</span></label>
+                                                <div class="col-lg-9">
+                                                    <select class="form-control" onblur="UpdateStatus(this.value)" id="val-status" name="val-status">
+                                                        <option value="">Select status</option>
+                                                        <option value="review">Under investigation</option>
+                                                        <option value="Confirmed">Confirmed</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label" for="val-comment">Description <span class="text-danger">*</span></label>
+                                            <div class="col-lg-9">
+                                                <textarea class="textarea_editor form-control" onblur="UpdateComment(this.value)" id="val-comment" name="val-comment" rows="15" placeholder="Briefly describe above..." style="height:100px"></textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+                            </div>
+                              
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2019 Medicare <a href="https://kenya-tech.com">Abraham Ogol</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <!-- <script src="js/users.js"></script> -->
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <!-- Form validation -->
+    <script src="js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="js/lib/form-validation/jquery.validate-init.js"></script>
+    
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
