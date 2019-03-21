@@ -39,7 +39,7 @@ class Records(Resource):
 
     @api.doc(docu_string)
     @api.expect(new_record, validate=True)
-    @api.marshal_with(new_record_resp, code=201)
+#     @api.marshal_with(new_record_resp, code=201)
     @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
@@ -91,7 +91,7 @@ class Records(Resource):
     docu_string = "This endpoint allows to get list of all records"
 
     @api.doc(docu_string)
-    @api.marshal_with(all_record, code=200)
+#     @api.marshal_with(all_record, code=200)
     @auth_required
     def get(self):
         if RecordModel().get_user_by_id(g.user)[4] == 'Normal':
@@ -131,7 +131,7 @@ class GetSpecifiedRecord(Resource):
 
         return record, 200
 
-    @api.marshal_with(all_record, code=200)
+#     @api.marshal_with(all_record, code=200)
     @auth_required
     def put(self, record_id):
         if RecordModel().check_exists("records", "record_id", record_id) == False:
