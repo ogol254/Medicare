@@ -113,7 +113,7 @@ class GetSpecifiedRecord(Resource):
     docu_string = "This endpoint allows to get a specific record"
 
     @api.doc(docu_string)
-    @api.marshal_with(g_resp, code=200)
+#     @api.marshal_with(g_resp, code=200)
     @auth_required
     def get(self, record_id):
         if RecordModel().check_exists("records", "record_id", record_id) == False:
