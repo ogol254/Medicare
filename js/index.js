@@ -1,6 +1,6 @@
 $( document ).ready(function() {
-    $('#sidebar').load('sidebar.html');
-    $('#header-area').load('headers.html');   
+    $('#header-area').load('headers.html');
+    $('#sidebar').load('sidebar.html');   
 });
 
 const token = localStorage.getItem("AuthToken");
@@ -77,7 +77,7 @@ function checkstatus(response) {
     if (response.ok) {
         return Promise.resolve(response);
     }else{
-        return Promise.reject(new Error(response.statusText));
+        return Promise.reject(new Error(response));
     }
 } 
 
@@ -97,6 +97,8 @@ function dangeralert(response) {
         <strong>Oh snap!</strong> ${response}
     </div>`
     $('#show-alert').html(alert)  
-}     
+}
+
+
 
 

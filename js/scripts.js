@@ -1,7 +1,7 @@
 $(function() {
     "use strict";
     $(function() {
-            $(".preloader").fadeOut();
+            $(".preloader").delay(2000).fadeOut();
         }),
 
         jQuery(document).on("click", ".mega-dropdown", function(i) {
@@ -127,5 +127,11 @@ $(function() {
 
         $('a[data-action="close"]').on("click", function() {
             $(this).closest(".card").removeClass().slideUp("fast");
+        });
+
+        $(document).ready(function() {
+            $("#mapa-modal button.close").click(function () {
+              $("#mapa-modal").modal("hide");
+            });
         });
 });

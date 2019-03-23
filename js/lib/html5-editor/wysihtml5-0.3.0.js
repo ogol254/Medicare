@@ -2559,7 +2559,7 @@ rangy.createModule("DomUtil", function(api, module) {
             r1.setStart(textNode, 0);
             r2.setEnd(textNode, 2);
             sel.addRange(r1);
-            sel.addRange(r2);
+            // sel.addRange(r2);
 
             selectionSupportsMultipleRanges = (sel.rangeCount == 2);
 
@@ -9437,9 +9437,6 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         }
       });
       
-      try {
-        console.log("Heya! This page is using wysihtml5 for rich text editing. Check out https://github.com/xing/wysihtml5");
-      } catch(e) {}
     },
     
     isCompatible: function() {

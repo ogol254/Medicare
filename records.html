@@ -10,19 +10,14 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Medicare - Maternal health monitor</title>
+    <title>Medicare - Records </title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lib/pagination/simplepagination.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="js/lib/jquery/jquery.min.js"></script>
-    <script src="js/lib/jquery/pagination.js"></script>
-
     <script src="js/index.js"></script>
- 
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -44,7 +39,7 @@
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Incidents</li>
+                        <li class="breadcrumb-item active">Records</li>
                     </ol>
                 </div>
             </div>
@@ -65,7 +60,7 @@
                                                 </div>
                                                 <div class="media-body media-text-right">
                                                     <h2>568120</h2>
-                                                    <p class="m-b-0">Total Incidents</p>
+                                                    <p class="m-b-0">Total Records</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +73,7 @@
                                                 </div>
                                                 <div class="media-body media-text-right">
                                                     <h2>1178</h2>
-                                                    <p class="m-b-0">New Incidents</p>
+                                                    <p class="m-b-0">Tracked Records</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +86,7 @@
                                                 </div>
                                                 <div class="media-body media-text-right">
                                                     <h2>25</h2>
-                                                    <p class="m-b-0">Solved Incidents</p>
+                                                    <p class="m-b-0">Delivery</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,7 +99,7 @@
                                                 </div>
                                                 <div class="media-body media-text-right">
                                                     <h2>847</h2>
-                                                    <p class="m-b-0">Under Review</p>
+                                                    <p class="m-b-0">Finished</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,10 +114,11 @@
                 
                     <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Incidents</h4>
-                                <div id="pagination"></div>
-                                <div class="table-responsive m-t-40" id="content">
-                                    
+                                <h4 class="card-title">Records</h4>
+                                <div id="data" class="table-responsive m-t-40">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                       
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -139,9 +135,7 @@
     </div>
     <!-- End Wrapper -->
     <!-- Bootstrap tether Core JavaScript -->
-
-    <script src="js/incidents.js"></script>
-    <script src="js/pagination.js"></script>
+    <script src="js/records.js"></script>
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -152,8 +146,17 @@
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="js/scripts.js"></script>
-</body>
-    
+
+    <!-- <script src="js/lib/datatables/datatables.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script> -->
+
 </body>
 
 </html>

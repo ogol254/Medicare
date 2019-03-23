@@ -13,7 +13,7 @@ function presentData(response) {
 	$('#phone').html(response.tell)
 	$('#date').html(response.created_on)
 	$('#location').html(response.location)
-	$('#description').html(response.description)
+	$('#description, #desc').html(response.description)
 	$('#type').html(response.type)
 	$('#status').html(response.status)
 
@@ -28,6 +28,17 @@ function presentData(response) {
 		$('#assign').html(response.assigned_to)
 	}
 }
+
+// function getcreateuser(){
+// 	return fetchData(uri)
+// 		.then(data => {
+// 			res = data.incidents[0];
+// 				incident_id : res.incident_id 
+// 			}
+// 		})
+// }
+
+
 
 function genereteOptions (object) {
 	const data = Object.values(object['users'])

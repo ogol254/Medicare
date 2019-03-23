@@ -96,7 +96,8 @@
                                     </div>
                                     <div class="col-md-6 col-xs-6 b-r"> <strong>Description</strong>
                                         <br>
-                                        <p id="description" class="text-muted"></p>
+                                        <p id="description" value="name" class="text-muted"> </p>
+                                        <input type="text"  id="desc" >
                                     </div>
                                 </div>
                                 <hr>
@@ -107,6 +108,11 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="card">
+                                    <button type="submit" data-toggle="modal" data-target="#mapa-modal " id="submit" class="btn btn-info btn-flat m-b-30 m-t-30">Create Record</button>
+                                </div>
+                                <hr>
+
                                 <h3>More Action</h3>
                                     <div id="show-alert"></div>
                                     <form class="form-valide" action="#" method="post">
@@ -153,6 +159,41 @@
         </div>
         <!-- End Page wrapper  -->
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="mapa-modal " tabindex="-1" role="dialog" aria-labelledby="mapa-modal Title" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">  
+        <h5 class="modal-title" id="modal fade Title">Modal title</h5>
+        <button type="button" class="close" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- End Wrapper -->
     <!-- Bootstrap tether Core JavaScript -->
     <!-- <script src="js/users.js"></script> -->
@@ -174,3 +215,5 @@
 </body>
 
 </html>
+
+      

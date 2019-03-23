@@ -1,0 +1,170 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Medicare - Records</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/pagination/simplepagination.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/helper.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/lib/html5-editor/bootstrap-wysihtml5.css" />
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="js/lib/jquery/pagination.js"></script>
+    <script src="js/index.js"></script>
+    
+    <!-- <script src="js/pace.js"></script> -->
+    <script>const record_id = decodeURIComponent(window.location.search).substring(11);</script>
+    
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <div id="header-area"></div>
+        <div id='sidebar'></div>
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">VIEW RECORD</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="records.html">Records</a></li>
+                        <li id="record_id" class="breadcrumb-item active"></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style=""> 
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-6 b-r"><strong>Full Name</strong>
+                                        <br>
+                                        <p id="name" class="text-muted"> </p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Record Number</strong>
+                                        <br>
+                                        <p id="xk" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Date Created</strong>
+                                        <br>
+                                        <p id="date" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Status</strong>
+                                        <br>
+                                        <p id="status"  class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Contact person</strong>
+                                        <br>
+                                        <p id="assign" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Location</strong>
+                                        <br>
+                                        <p id="location" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Type</strong>
+                                        <br>
+                                        <p id="type" class="text-muted"></p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 b-r"> <strong>Description</strong>
+                                        <br>
+                                        <p id="description"  class="text-muted"></p>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+                                <div class="card">
+                                    <div id="show-alert"></div>
+                                    <div class="card-body">
+                                            <h4 class="card-title">Write Comment</h4>
+                                            <form class="form-valide" action="#" method="post">
+                                                <div class="form-group">
+                                                    <textarea class="textarea_editor form-control" id="comment"  rows="15" placeholder="Enter text ..." style="height:150px"></textarea>
+                                                </div>
+                                                <!-- <div class="form-group center" > -->
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                <!-- </div> -->
+                                            </form>
+                                        </div>
+                                </div>
+                                <hr>       
+                            </div>
+                        </div>
+                        <div class="card" >
+                            <div class="card-body">
+                                <!-- start -->
+                                <div class="tab-pane active" id="home" role="tabpanel" >
+                                        <div class="profiletimeline" >
+                                            
+                                        </div>
+                                    </div>
+                                <!-- end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2019 Medicare <a href="https://kenya-tech.com">Abraham Ogol</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/view_records.js"></script>
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="js/lib/html5-editor/wysihtml5-0.3.0.js"></script>
+    <script src="js/lib/html5-editor/bootstrap-wysihtml5.js"></script>
+    <script src="js/lib/html5-editor/wysihtml5-init.js"></script>
+    <!--Custom JavaScript -->
+    <!-- Form validation -->
+    <!-- <script src="js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="js/lib/form-validation/jquery.validate-init.js"></script> -->
+    
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
+
