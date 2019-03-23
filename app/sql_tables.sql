@@ -77,4 +77,6 @@ CREATE TABLE IF NOT EXISTS bio (
     secondary_tell character varying(50) NULL
 );
 
+ALTER TABLE incidents DROP COLUMN tell;
 
+ALTER TABLE incidents ADD tell character varying(50);

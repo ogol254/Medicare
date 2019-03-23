@@ -78,7 +78,6 @@ class Incidents(Resource):
     docu_string = "This endpoint allows to get list of all incidents"
 
     @api.doc(docu_string)
-    # @api.marshal_with(g_resp, code=200)
     @auth_required
     def get(self):
         if IncidentModel().get_user_by_id(g.user)[4] == 'Normal':
@@ -105,7 +104,6 @@ class IncidentStatus(Resource):
         incident_list = {
             "incidents": resp
         }
-
         return incident_list, 200
 
 
@@ -116,7 +114,6 @@ class GetSpecifiedIncident(Resource):
     docu_string = "This endpoint allows to get a specific incident"
 
     @api.doc(docu_string)
-    #@api.marshal_with(g_resp, code=200)
     @auth_required
     def get(self, incident_id):
         if IncidentModel().check_exists("incidents", "incident_id", incident_id) == False:
@@ -129,7 +126,6 @@ class GetSpecifiedIncident(Resource):
 
         return incident, 200
 
-    #@api.marshal_with(g_resp, code=200)
     @auth_required
     def put(self, incident_id):
         if IncidentModel().check_exists("incidents", "incident_id", incident_id) == False:
