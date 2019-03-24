@@ -37,7 +37,7 @@ class CommentModel(BaseModel):
     def get_specif_record_comments(self, record_id):
         dbconn = init_db()
         curr = dbconn.cursor()
-        query = """SELECT comment_id, created_by, comment, date_created FROM comments WHERE record_id=%s;"""
+        query = """SELECT comment_id, created_by, comment, date_created FROM comments WHERE record_id=%s ORDER BY date_created DESC;"""
         curr.execute(query, [record_id])
         data = curr.fetchall()
         resp = []

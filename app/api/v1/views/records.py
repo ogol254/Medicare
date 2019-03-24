@@ -105,6 +105,21 @@ class Records(Resource):
 
         return record_list, 200
 
+@api.route("/<string:status>")
+class RecordStatus(Resource):
+    """This class collects the methods for the auth/signin method"""
+
+    @auth_required
+    def get(self, status):
+        if RecordModel().get_user_by_id(g.user)[4] == 'Normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
+        resp = RecordModel().get_single_records(status)
+        record_list = {
+            "records": resp
+        }
+        return record_list, 200
+
 
 @api.route('/<int:record_id>')
 class GetSpecifiedRecord(Resource):

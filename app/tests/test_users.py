@@ -52,26 +52,30 @@ class TestUser(BaseTest):
         """Test that a user can get all his/he rrecords using a GET request"""
         login = self.clinician_login()
         token = login.json['AuthToken']
-        add_user = self.get(path="/api/v1/users/records", auth=token)
+        path = "/api/v1/users/records/{}".format(int(login.json['id_number']))
+        add_user = self.get(path=path, auth=token)
         self.assertEqual(add_user.status_code, 200)
 
     def test_getting_user_icnidents_clinician(self):
         """Test that an admin/clinician user can get all  incidents using a GET request"""
-        login = self.clinician_login()
+        login = self.clinician_login() 
         token = login.json['AuthToken']
-        add_user = self.get(path="/api/v1/users/incidents", auth=token)
+        path = "/api/v1/users/incidents/{}".format(int(login.json['id_number']))
+        add_user = self.get(path=path, auth=token)
         self.assertEqual(add_user.status_code, 200)
 
     def test_getting_user_icnidents_normal(self):
         """Test that a normal user cannot get all his/he incidents using a GET request"""
         login = self.normal_login()
         token = login.json['AuthToken']
-        add_user = self.get(path="/api/v1/users/incidents", auth=token)
+        path = "/api/v1/users/incidents/{}".format(int(login.json['id_number']))
+        add_user = self.get(path=path, auth=token)
         self.assertEqual(add_user.status_code, 401)
 
     def test_sending_request_without_header(self):
         """Test sending a bad request"""
-        add_user = self.get(path="/api/v1/users/incidents", auth=None)
+        path = "/api/v1/users/incidents/{}".format(int(login.json['id_number']))
+        add_user = self.get(path=path, auth=None)
         self.assertEqual(add_user.status_code, 400)
 
     def tearDown(self):

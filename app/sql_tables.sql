@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS incidents (
     status character varying(10) DEFAULT 0,
     location character varying(200) NULL,
     assigned_to numeric (10) NULL,
-    tell numeric (15) NULL,
+    tell character varying(15) (15),
     comment character varying(200) NULL,
     created_on timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
  );
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS records (
     id_num numeric (10) NOT NULL,
     type character varying(20)  NOT NULL,
     description character varying(200) NOT NULL,
+    p_age numeric (4) DEFAULT 100,
     location character varying(200) NOT NULL,
     facility_id numeric NOT NULL,
     status character varying(50) DEFAULT 0,
@@ -76,7 +77,3 @@ CREATE TABLE IF NOT EXISTS bio (
     height character varying(3) NULL,
     secondary_tell character varying(50) NULL
 );
-
-ALTER TABLE incidents DROP COLUMN tell;
-
-ALTER TABLE incidents ADD tell character varying(50);

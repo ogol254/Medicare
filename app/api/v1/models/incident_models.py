@@ -51,7 +51,7 @@ class IncidentModel(BaseModel):
         dbconn = init_db()
         curr = dbconn.cursor()
         query = """SELECT incident_id, created_by, type, description, location,
-            assigned_to, tell, comment, created_on FROM incidents WHERE status=%s;"""
+            assigned_to, tell, comment, created_on FROM incidents WHERE status=%s ORDER BY created_on DESC;"""
         curr.execute(query, [status])
         data = curr.fetchall()
         resp = []
@@ -150,7 +150,7 @@ class UserIncidentsModel(BaseModel):
         dbconn = init_db()
         curr = dbconn.cursor()
         query = """SELECT incident_id, created_by, type, description, location, status, tell, 
-            comment, created_on FROM incidents WHERE assigned_to=%s;"""
+            comment, created_on FROM incidents WHERE assigned_to=%s ORDER BY created_on DESC;"""
         curr.execute(query, [self.id])
         data = curr.fetchall()
         resp = []
