@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS incidents (
     status character varying(10) DEFAULT 0,
     location character varying(200) NULL,
     assigned_to numeric (10) NULL,
-    tell character varying(15) (15),
+    tell character varying(15),
     comment character varying(200) NULL,
     created_on timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
  );
