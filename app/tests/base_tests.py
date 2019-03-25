@@ -146,6 +146,7 @@ class BaseTest(unittest.TestCase):
             "type": "Third party record",
             "description": "3 months pregnant",
             "location": "Huruma",
+            "p_age" : 123,
             "facility_id": self.post_facilities().json['facility_id']
         }
         token = self.admin_login().json['AuthToken']
