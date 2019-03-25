@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, Forbidden
 
 # local imports
-from ..models.records_model import RecordModel
+from ..models.records_model import RecordModel, UserRecordsModel
 from ..models.comment_models import CommentModel
 from ..utils.serializers import RecordDTO
 from ..utils.auth_validation import auth_required
@@ -39,7 +39,7 @@ class Records(Resource):
 
     @api.doc(docu_string)
     @api.expect(new_record, validate=True)
-#     @api.marshal_with(new_record_resp, code=201)
+    @api.marshal_with(new_record_resp, code=201)
     @auth_required
     def post(self):
         """This endpoint allows an unregistered user to sign up."""
@@ -54,6 +54,7 @@ class Records(Resource):
             id_num = body['id_num']
             description = body['description'].strip()
             facility_id = body['facility_id']
+            p_age = body['p_age']
 
             if RecordModel().check_exists("incidents", "incident_id", incident_id) == False:
                 raise BadRequest("This incident does not exist")
@@ -72,6 +73,7 @@ class Records(Resource):
             "created_by": g.user,
             "id_num": id_num,
             "type": type,
+            "p_age": p_age,
             "description": description,
             "location": location,
             "facility_id": facility_id
@@ -171,3 +173,21 @@ class GetSpecifiedRecord(Resource):
             }
 
         return resp, 200
+
+@api.route("/search/<int:user_id>")
+class SearcRecordbyID(Resource):
+
+    @auth_required
+    def get(self, user_id):
+        role = RecordModel().get_user_by_id(g.user)[4]
+        if role == 'Normal':
+            raise Unauthorized("You are not permitted to preform this operation")
+
+        usr = UserRecordsModel(user_id)
+        resp = usr.get_all_user_records()
+        if not resp:
+            resp = "No record(s) with that user"
+        data_records = {
+            "Records": resp
+        }
+        return data_records, 200
