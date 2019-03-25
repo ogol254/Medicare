@@ -64,7 +64,7 @@ class RecordModel(BaseModel):
 
         database = self.db
         curr = database.cursor()
-        query = """INSERT INTO records (incident_id, created_by, id_num, p_age type, description, location, \
+        query = """INSERT INTO records (incident_id, created_by, id_num, p_age, type, description, location, \
             facility_id, status) \
             VALUES (%(incident_id)s, %(created_by)s, %(id_num)s, %(p_age)s,\
             %(type)s, %(description)s, %(location)s, %(facility_id)s, %(status)s) RETURNING record_id;
