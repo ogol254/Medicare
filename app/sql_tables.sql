@@ -77,3 +77,4 @@ CREATE TABLE IF NOT EXISTS bio (
     height character varying(3) NULL,
     secondary_tell character varying(50) NULL
 );
+
