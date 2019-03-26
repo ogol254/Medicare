@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS facilities (
     facility_id serial PRIMARY KEY NOT NULL,
     name character varying(100) NOT NULL,
     location character varying(200) NOT NULL,
-    contact numeric (15) NOT NULL, 
+    contact character varying(15) NOT NULL,
+    level  character varying(30) NOT NULL,
     created_by character varying(20) NOT NULL,
     date_created timestamp with time zone DEFAULT ('now'::text)::date NOT NULL
 );
@@ -78,5 +79,4 @@ CREATE TABLE IF NOT EXISTS bio (
     secondary_tell character varying(50) NULL
 );
 
-ALTER TABLE ONLY facilities ALTER  COLUMN contact TYPE character(15);
 

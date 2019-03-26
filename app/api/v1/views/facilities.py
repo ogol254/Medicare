@@ -53,6 +53,7 @@ class Facility(Resource):
             name = body['name'].strip()
             location = body['location'].strip()
             contact = body['contact'].strip()
+            level = body['level'].strip()
 
         except (KeyError, IndexError) as e:
             raise BadRequest
@@ -61,7 +62,8 @@ class Facility(Resource):
             "name": name,
             "created_by": g.user,
             "location": location,
-            "contact": contact
+            "contact": contact,
+            "level" : level
         }
 
         _validate_(facility_data)

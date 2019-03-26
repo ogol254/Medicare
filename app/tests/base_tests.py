@@ -63,7 +63,8 @@ class BaseTest(unittest.TestCase):
         self.facility = {
             "name": "Kenyatta Refferal hospital",
             "location": "Nairobo",
-            "contact": "0790463533"
+            "contact": "0790463533", 
+            "level" : "level 1"
         }
 
         self.error_msg = "The path accessed / resource requested cannot be found, please check"
