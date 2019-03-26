@@ -78,7 +78,7 @@ class Facility(Resource):
     docu_string = "This endpoint allows to get list of all facilities"
 
     @api.doc(docu_string)
-    @api.marshal_with(all_resp, code=200)
+#     @api.marshal_with(all_resp, code=200)
     @auth_required
     def get(self):
         if FacilityModel().get_user_by_id(g.user)[4] != 'Admin':
@@ -96,7 +96,7 @@ class Facility(Resource):
 class GetSpecificFacility(Resource):
     """docstring for GetSpecifiedfacility"""
 
-    @api.marshal_with(new_facility_resp, code=200)
+#     @api.marshal_with(new_facility_resp, code=200)
     @auth_required
     def put(self, facility_id):
         if FacilityModel().check_exists("facilities", "facility_id", facility_id) == False:
@@ -125,7 +125,7 @@ class GetSpecificFacility(Resource):
 
         return resp, 200
 
-    @api.marshal_with(all_resp, code=200)
+#     @api.marshal_with(all_resp, code=200)
     @auth_required
     def get(self, facility_id):
         if FacilityModel().check_exists("facilities", "facility_id", facility_id) == False:
