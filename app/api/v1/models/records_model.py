@@ -156,6 +156,7 @@ class UserRecordsModel(BaseModel):
                 record_id=int(record_id),
                 created_by=BaseModel().get_name(created_by),
                 type=type,
+                name=BaseModel().get_name(self.number),
                 p_age=int(p_age),
                 description=description,
                 location=location,
