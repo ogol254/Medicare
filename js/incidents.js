@@ -1,11 +1,5 @@
 const table  = document.querySelector('table');
 const form  = document.querySelector('form');
-const showalert = document.getElementById('alertarea');
-
-// const uri = "";
-
-// $( document ).ready(function() {
-
     
 fetch(`https://medicarea.herokuapp.com/api/v1/incidents`, getconfig)
     .then((response) => {
@@ -43,10 +37,6 @@ fetch(`https://medicarea.herokuapp.com/api/v1/incidents`, getconfig)
             $('#content').html(html)
         })
     })
-        
-// });
-
-// form.addEventListener('submit', Addincident);
 
 function Addincident(e){
     e.preventDefault();
@@ -73,22 +63,7 @@ function Addincident(e){
         .then(response => response.json())
         .then(data => successalert(data.message))
 }
-
-function successalert(response) {
-    const alert = `
-    <div class="alert alert-primary alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Holy guacamole!</strong> ${response}.
-    </div>`
-    showalert.innerHTML = alert  
-}
-
-// -------------------------------------------------
-// Viewing specific incidents
-// -------------------------------------------------
-
-// console.log(incident_id)
-
+form.addEventListener('submit', Addincident);
 
 
 
