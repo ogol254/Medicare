@@ -55,6 +55,7 @@ function logout() {
 
 function fetchData (url) {
     return fetch(url, getconfig)
+        // .then(checkpermission)
         .then(checkstatus)
         .then(res => res.json())
         .catch(err => console.log('Looks there was a proble', err))
@@ -71,7 +72,15 @@ function checkvalidity(url) {
                 }
             })
     
-        }  
+        } 
+        
+function checkpermission(response) {
+    if (response.status === 404){
+        redirect: window.location.replace("404.html") 
+    }else if(response.status === 401){
+        redirect: window.location.replace("401.html")
+    }
+}
 
 function checkstatus(response) {
     if (response.ok) {

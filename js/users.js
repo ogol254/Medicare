@@ -7,6 +7,7 @@ $( document ).ready(function() {
     
     
     fetch(`https://medicarea.herokuapp.com/api/v1/users`, getconfig)
+        // .then(checkpermission) 
         .then((response) => {
             response.json().then(data => {
                 const users = Object.values(data.users)
