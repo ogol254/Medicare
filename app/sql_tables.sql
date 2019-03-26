@@ -78,3 +78,5 @@ CREATE TABLE IF NOT EXISTS bio (
     secondary_tell character varying(50) NULL
 );
 
+ALTER TABLE ONLY facilities ALTER  COLUMN contact TYPE character(15);
+
